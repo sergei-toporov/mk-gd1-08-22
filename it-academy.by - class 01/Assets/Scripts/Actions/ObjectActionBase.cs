@@ -8,25 +8,18 @@ using UnityEngine;
 public class ObjectActionBase : MonoBehaviour
 {
     /**
-     * X-axis limit for spawned objects.
+     * Position borders: minimum.
      * 
-     * @param List<float>
-     * */
-    [SerializeField] protected List<float> xBorder = new List<float> { -20.0f, 20.0f };
+     * @param Vector3
+     */
+    [SerializeField] protected Vector3 borderMin = new Vector3(-20.0f, 0.5f, -20.0f);
 
     /**
-     * Y-axis limit for spawned objects.
+     * Position borders: maximum.
      * 
-     * @param List<float>
-     * */
-    [SerializeField] protected List<float> yBorder = new List<float> { -10.0f, 10.0f };
-
-    /**
-     * Z-axis limit for spawned objects.
-     * 
-     * @param List<float>
-     * */
-    [SerializeField] protected List<float> zBorder = new List<float> { -20.0f, 20.0f };
+     * @param Vector3
+     */
+    [SerializeField] protected Vector3 borderMax = new Vector3(20.0f, 5.0f, 20.0f);
 
     /**
      * Timestamp of the last object activity.
@@ -41,14 +34,6 @@ public class ObjectActionBase : MonoBehaviour
      * @param float
      */ 
     [SerializeField] protected float maxTimeDiff = 3.0f;
-
-    /**
-     * {inheritdoc}
-     */
-    void Start()
-    {
-        
-    }
 
     /**
      * {inheritdoc}

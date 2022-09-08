@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2162869384134907872}
   - component: {fileID: 2162869384134907875}
   - component: {fileID: 2162869384134907874}
-  - component: {fileID: 2162869384134907885}
   - component: {fileID: -4476204379443732241}
   m_Layer: 0
   m_Name: PingPong
@@ -99,22 +98,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &2162869384134907885
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2162869384134907884}
-  serializedVersion: 2
-  m_Mass: 200
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &-4476204379443732241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,14 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea24bd57034f6f499d2b1e42c167c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  borderMin: {x: -20, y: 0.5, z: -20}
+  borderMax: {x: 20, y: 5, z: 20}
+  timestamp: 0
+  maxTimeDiff: 3
   movementSpeed: 10
-  direction: {x: 1, y: 0, z: 0}
-  xBorder:
-  - -20
-  - 20
-  yBorder:
-  - -10
-  - 10
-  zBorder:
-  - -20
-  - 20
+  startPosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}

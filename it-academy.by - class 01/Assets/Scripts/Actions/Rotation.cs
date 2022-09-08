@@ -26,13 +26,15 @@ public class Rotation : ObjectActionBase
      */
     private void Start()
     {
-        float xAxis = Random.Range(-90.0f, 90.0f);
-        float yAxis = Random.Range(-90.0f, 90.0f);
-        float zAxis = Random.Range(-90.0f, 90.0f);
+        Vector3 rotationDirection = new Vector3(
+            Random.Range(-90.0f, 90.0f),
+            Random.Range(-90.0f, 90.0f),
+            Random.Range(-90.0f, 90.0f)
+            );
         rotationVector = new Vector3(
-            xAxis * rotationSpeed * Time.deltaTime,
-            yAxis * rotationSpeed * Time.deltaTime,
-            zAxis * rotationSpeed * Time.deltaTime
+            rotationDirection.x * rotationSpeed * Time.deltaTime,
+            rotationDirection.y * rotationSpeed * Time.deltaTime,
+            rotationDirection.z * rotationSpeed * Time.deltaTime
             );
     }
 

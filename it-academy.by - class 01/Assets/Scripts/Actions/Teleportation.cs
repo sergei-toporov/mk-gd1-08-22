@@ -29,9 +29,9 @@ public class Teleportation : ObjectActionBase
         if ((currentTimestamp - timestamp) > maxTimeDiff)
         {
             transform.position = new Vector3(
-            Random.Range(xBorder[0], xBorder[1]),
-            1.0f,
-            Random.Range(zBorder[0], zBorder[1])
+                Random.Range(borderMin.x, borderMax.x),
+                Random.Range(borderMin.y, borderMax.y),
+                Random.Range(borderMin.z, borderMax.z)
             );
             timestamp = currentTimestamp;
         }

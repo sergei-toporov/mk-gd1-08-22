@@ -15,32 +15,25 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
 
     /**
-     * An object which is responsible for spawning.
+     * An object responsible for spawning.
      * 
      * @param GameObject
      */
     [SerializeField] private GameObject spawner;
 
     /**
-     * X-axis limits for spawning.
+     * Spawn coords limits: minimum.
      * 
-     * @param List<float>
+     * @param Vector3
      */
-    [SerializeField] private List<float> xRange = new List<float> { -10.0f, 10.0f };
+    [SerializeField] protected Vector3 spawnRangeMin = new Vector3(-10.0f, 0.5f, -10.0f);
 
     /**
-     * Y-axis limits for spawning.
+     * Spawn coords limits: maximum.
      * 
-     * @param List<float>
+     * @param Vector3
      */
-    [SerializeField] private List<float> yRange = new List<float> { 1.0f, 10.0f };
-
-    /**
-     * Z-axis limits for spawning.
-     * 
-     * @param List<float>
-     */
-    [SerializeField] private List<float> zRange = new List<float> { -10.0f, 10.0f };
+    [SerializeField] protected Vector3 spawnRangeMax = new Vector3(10.0f, 5.0f, 10.0f);
 
     /**
      * Currently spawned object.
@@ -48,14 +41,6 @@ public class ObjectSpawner : MonoBehaviour
      * @param GameObject
      */
     private GameObject testSubject;
-
-    /**
-     * {@inheritdoc}
-     */ 
-    void Start()
-    {
-        
-    }
 
     /**
      * {@inheritdoc}
@@ -70,6 +55,11 @@ public class ObjectSpawner : MonoBehaviour
                 return;
             }
 
+            if (spawner == null)
+            {
+                Debug.Log("Error: Spawner object is not assigned.");
+            }
+
             if (testSubject != null)
             {
                 GameObject.Destroy(testSubject, 1.0f);
@@ -77,11 +67,16 @@ public class ObjectSpawner : MonoBehaviour
 
             var rotation = Quaternion.identity;
             var position = new Vector3(
-                Random.Range(xRange[0], xRange[1]),
-                Random.Range(yRange[0], yRange[1]),
-                Random.Range(zRange[0], zRange[1])
+                Random.Range(spawnRangeMin.x, spawnRangeMax.x),
+                Random.Range(spawnRangeMin.y, spawnRangeMax.y),
+                Random.Range(spawnRangeMin.z, spawnRangeMax.z)
                 );
             testSubject = Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, rotation);
+        }
+
+        if (testSubject && testSubject.transform.position.y < -spawnRangeMin.y)
+        {
+            testSubject.transform.position = Vector3.zero;
         }
     }
 }
