@@ -10,8 +10,8 @@ public class Teleportation : ObjectActionBase
 
     /**
      * {@inheritdoc}
-     */ 
-    protected override void MakeAction()
+     */
+    public void Start()
     {
         StartCoroutine(SpaceTimeJump());
     }
@@ -23,17 +23,15 @@ public class Teleportation : ObjectActionBase
      */
     protected IEnumerator SpaceTimeJump()
     {
-        yield return new WaitForSeconds(maxTimeDiff);
-        float currentTimestamp = Time.time;
-
-        if ((currentTimestamp - timestamp) > maxTimeDiff)
+        while (true)
         {
+            yield return new WaitForSeconds(maxTimeDiff);
+
             transform.position = new Vector3(
                 Random.Range(borderMin.x, borderMax.x),
                 Random.Range(borderMin.y, borderMax.y),
                 Random.Range(borderMin.z, borderMax.z)
-            );
-            timestamp = currentTimestamp;
-        }
+                );
+        }        
     }
 }
