@@ -1,9 +1,8 @@
-Lesson #1:
+Lesson-1 branch: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-01
 
-- PingPong: Simpliest. Object moves from point A to point B and back. No maths.
+Assets + Windows build
 
-- Teleportation: Object relocates without visible movement.
+Lesson-2 branch: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-02
 
-- Scaling: Object changes its dimension in a random way.
+Assets
 
-- Rotation: Object simply rotates.
