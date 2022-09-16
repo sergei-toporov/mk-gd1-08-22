@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Orbital camera handler.
+ */
 public class OrbitCamera : MonoBehaviour
 {
     /**
@@ -23,15 +26,12 @@ public class OrbitCamera : MonoBehaviour
      * 
      * @param Camera
      */
-    private Camera flybyCam;
-    public Camera FlybyCam
+    private Camera orbitalCamera;
+    public Camera OrbitalCamera
     {
         set
         {
-            if (value is Camera)
-            {
-                flybyCam = value;
-            }
+            orbitalCamera = value;
         }
     }
 
@@ -40,11 +40,18 @@ public class OrbitCamera : MonoBehaviour
      * 
      * @param Transform
      */
-    private Transform flybyCenter;
-    public Transform FlybyCenter
+    private Transform orbitCenter;
+    public Transform OrbitCenter
     {
-        get => flybyCenter;
+        get => orbitCenter;
     }
+
+    /**
+     * A game object for camera positioning.
+     * 
+     * @param GameObject
+     */
+    private GameObject orbitalCameraRay;
 
     /**
      * Previous position vector.
@@ -58,7 +65,7 @@ public class OrbitCamera : MonoBehaviour
      * 
      * @param float
      */
-    private float distanceToFlybyCenter = 10.0f;
+    private float distanceToOrbitCenter;
 
     /**
      * Game Manager instance.
@@ -73,8 +80,11 @@ public class OrbitCamera : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        flybyCenter = gameManager.ShipPool.transform;
-        distanceToFlybyCenter = Vector3.Distance(flybyCam.transform.position, flybyCenter.position);
+        orbitCenter = gameManager.ShipPool.transform;
+        distanceToOrbitCenter = Vector3.Distance(orbitalCamera.transform.position, orbitCenter.position);
+        orbitalCameraRay = new GameObject("OrbitCameraRay");
+        orbitalCameraRay.transform.position = orbitalCamera.transform.position;
+        orbitalCameraRay.transform.rotation = orbitalCamera.transform.rotation;
     }
 
     /**
@@ -84,18 +94,20 @@ public class OrbitCamera : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            previousPosition = flybyCam.ScreenToViewportPoint(Input.mousePosition);
+            previousPosition = orbitalCamera.ScreenToViewportPoint(Input.mousePosition);
         }
         else if (Input.GetMouseButton(0))
         {
-            Vector3 newPosition = flybyCam.ScreenToViewportPoint(Input.mousePosition);
+            Vector3 newPosition = orbitalCamera.ScreenToViewportPoint(Input.mousePosition);
             Vector3 direction = (previousPosition - newPosition).normalized;
             float yAxisRotation = direction.x * maxCameraRotationPerSwipe * Time.deltaTime * maxRotationSpeed;
-            
-            flybyCam.transform.position = flybyCenter.position;
-            flybyCam.transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), yAxisRotation, Space.World);
-            flybyCam.transform.Translate(new Vector3(0.0f, 0.0f, -distanceToFlybyCenter));
 
+            orbitalCameraRay.transform.position = orbitCenter.position;
+            orbitalCameraRay.transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), yAxisRotation, Space.World);
+            orbitalCameraRay.transform.Translate(new Vector3(0.0f, 0.0f, -distanceToOrbitCenter));
+
+            orbitalCamera.transform.position = orbitalCameraRay.transform.position;
+            orbitalCamera.transform.rotation = orbitalCameraRay.transform.rotation;
             previousPosition = newPosition;
         }
     }

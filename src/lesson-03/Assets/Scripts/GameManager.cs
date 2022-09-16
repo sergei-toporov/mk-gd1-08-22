@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject inputController = new GameObject("InputController");
         inputController.AddComponent<OrbitCamera>();
-        inputController.GetComponent<OrbitCamera>().FlybyCam =
+        inputController.GetComponent<OrbitCamera>().OrbitalCamera =
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
