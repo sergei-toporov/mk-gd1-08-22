@@ -1,7 +1,7 @@
-Lesson-1 branch: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-01
+Lesson #4:
 
-Assets + Windows build
+W/A/S/D - movement
+Space - shooting
 
-Lesson-2 branch: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-02
-
-Assets
+White boxes - targets
+Color pillars - weapon switchers
