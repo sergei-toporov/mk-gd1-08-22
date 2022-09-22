@@ -55,7 +55,7 @@ public class CannonController : MonoBehaviour
     /**
      * {@inheritdoc}
      */
-    private void Awake()
+    private void Start()
     {
         projectile = GameManager.Instance.GetAmmoByCannonType(cannonType);
         emitter = this.GetComponentInChildren<ProjectileEmitterController>();
