@@ -1,7 +1,10 @@
-Lesson-1 branch: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-01
+Lesson #5:
 
-Assets + Windows build
+Keyboard:
+* W/A/S/D - movement
+* Space - jumping
+* R/F - camera pitch
 
-Lesson-2 branch: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-02
-
-Assets
+Touch:
+* Single touch and hold - rotate and move forward
+* Single touch&hold + second tap - jumping.
