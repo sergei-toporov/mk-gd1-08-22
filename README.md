@@ -1,3 +1,6 @@
+Lesson #5: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-05
+- Assets + Android build
+
 Lesson #4: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-04
 - Assets
 
