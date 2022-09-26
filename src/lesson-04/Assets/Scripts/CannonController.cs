@@ -3,25 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /**
- * Cannon controller.
+ * Cannon handler.
  */
 public class CannonController : MonoBehaviour
 {
     /**
-     * Cannon index.
+     * Cannon controller component.
      * 
-     * @param int
+     * @param CannonController
      */
-    [SerializeField] private int cannonType = 0;
-    public int CannonType { get => cannonType; }
+    private CannonController controller;
+    public CannonController Controller {
+        get
+        {
+            return controller = controller != null ? controller : GetComponent<CannonController>();
+        }
+    }
 
     /**
-     * Cannon's ammunition.
+     * Assigned projectile.
      * 
      * @param GameObject
      */
     [SerializeField] private GameObject projectile;
-    public GameObject Projectile { get => projectile; }
 
     /**
      * Cannon reloading time
@@ -55,14 +59,17 @@ public class CannonController : MonoBehaviour
     /**
      * {@inheritdoc}
      */
-    private void Start()
-    {
-        projectile = GameManager.Instance.GetAmmoByCannonType(cannonType);
-        emitter = this.GetComponentInChildren<ProjectileEmitterController>();
+    private void Awake()
+    { 
+        emitter = GetComponentInChildren<ProjectileEmitterController>();
+        if (!projectile.TryGetComponent(out Rigidbody projectileRb))
+        {
+            Debug.LogError("The assigned ammunition type has no Rigidbody component: " + projectile.name);
+        }
     }
 
     /**
-     * Shoots if it's not in reloading mode.
+     * Makes shot.
      * 
      * @return void
      */
@@ -70,21 +77,23 @@ public class CannonController : MonoBehaviour
     {
         if (!isReloading)
         {
-            StartCoroutine(ProcessShot());
+            StartCoroutine(MakeShotCoroutine());
         }
     }
 
     /**
-     * Shooting process handler.
+     * Processes the shot.
      * 
      * @return IEnumerator
      */
-    private IEnumerator ProcessShot()
+    private IEnumerator MakeShotCoroutine()
     {
         isReloading = true;
-        Instantiate(projectile, emitter.transform.position, emitter.transform.rotation);
+        var shell = Instantiate(projectile, emitter.transform.position, emitter.transform.rotation);
+        var shellRb = shell.GetComponent<Rigidbody>();
+        shellRb.AddForce(shell.transform.forward * shotForce, ForceMode.Impulse);
+        
         yield return new WaitForSeconds(reloadingTime);
-
         isReloading = false;
     }
 }

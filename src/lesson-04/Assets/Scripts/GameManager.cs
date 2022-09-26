@@ -10,13 +10,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     /**
-     * A collection of projectile types.
-     *
-     * @param GameObject[]
-     */
-    [SerializeField] private GameObject[] ammunition;
-
-    /**
      * Main character game object.
      * 
      * @param GameObject
@@ -44,32 +37,10 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         GameObject targetsCollection = GameObject.Find("Targets");
-
         foreach (Transform target in targetsCollection.transform)
         {
             target.AddComponent<TargetController>();
         }
 
-    }
-
-    /**
-     * Returns ammunition type related to the provided cannon type.
-     * 
-     * @param int cannonType
-     *   Index of the cannon type.
-     *   
-     * @return GameObject
-     *   Ammunition type game object.
-     */
-    public GameObject GetAmmoByCannonType (int cannonType)
-    {
-        int ammoType = cannonType - 1;
-
-        if (ammoType < 0 || ammoType >= ammunition.Length)
-        {
-            return new GameObject("DumpAmmo");
-        }
-
-        return ammunition[ammoType];
     }
 }

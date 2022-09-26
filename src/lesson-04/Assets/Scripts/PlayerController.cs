@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using TSN_Utility;
+using System.Linq;
 
 /**
  * Player object handler.
@@ -26,17 +27,17 @@ public class PlayerController : MonoBehaviour
     /**
      * A collection of cannons connected to the player's game object.
      * 
-     * @param GameObject[]
+     * @param CannonController[]
      */
-    private GameObject[] cannons;
+    private CannonController[] cannons;
 
     /**
      * Currently active cannon.
      * 
-     * @param GameObject
+     * @param CannonController
      */
-    [SerializeField] private GameObject activeCannon;
-    public GameObject ActiveCannon { get => activeCannon; }
+    [SerializeField] private CannonController activeCannon;
+    public CannonController ActiveCannon { get => activeCannon; }
 
     /**
      * {@inheritdoc}
@@ -45,7 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         if (activeCannon == null)
         {
-            cannons = ObjectsFinder.FindChildrenInGameObjectByTag("RobotCannon", gameObject);
+            cannons = GetComponentsInChildren<CannonController>();
             activeCannon = cannons[Random.Range(0, cannons.Length)];
         }
     }
@@ -73,23 +74,29 @@ public class PlayerController : MonoBehaviour
      */
     public void Shoot()
     {
-        activeCannon.GetComponent<CannonController>().MakeShot();
+        activeCannon.MakeShot();
     }
 
     /**
-     * Switches cannon according to the provided weapon switcher object.
+     * Switches cannon according to the provided cannon controller.
      * 
      * If no such cannon in the collection, activates the very first cannon from the collection.
      * 
-     * @param GameObject
+     * @param CannonController
      * 
      * @return void
      */
-    public void SwitchCannon(GameObject weaponSwitcher)
+    public void SwitchCannon(CannonController cannonController)
     {
-        var cannonIndex = weaponSwitcher.GetComponent<WeaponSwitcherController>().CannonType;
-        activeCannon = (cannonIndex >= 0 && cannonIndex < cannons.Length)
-            ? cannons[cannonIndex]
-            : cannons[0];
+        foreach (CannonController cannon in cannons)
+        {
+            if (cannon.name == cannonController.name)
+            {
+                activeCannon = cannon;
+                return;
+            }
+        }
+
+        activeCannon = cannons[0];
     }
 }

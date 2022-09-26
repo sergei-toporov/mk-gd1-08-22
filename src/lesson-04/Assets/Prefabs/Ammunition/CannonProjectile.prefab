@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9109793807812878635}
   - component: {fileID: 4518629175133703236}
   - component: {fileID: 6527937302543168035}
-  - component: {fileID: 8615891960425059084}
+  - component: {fileID: -1040026573402783375}
   m_Layer: 0
   m_Name: CannonProjectile
   m_TagString: Untagged
@@ -30,11 +30,11 @@ Transform:
   m_GameObject: {fileID: 4338147610306765756}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -12.110986, y: 1.561574, z: -11.267446}
-  m_LocalScale: {x: 0.8, y: 1, z: 0.8}
+  m_LocalScale: {x: 0.8, y: 0.3, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &2143180625915157988
 MeshFilter:
@@ -116,7 +116,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8615891960425059084
+--- !u!114 &-1040026573402783375
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,6 +125,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4338147610306765756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ade0de64af8df74db858b091a20c612, type: 3}
+  m_Script: {fileID: 11500000, guid: ba481cc56231f9b40a78d1f39fae95b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blastRadius: 0
+  blastForce: 0
+  timeToLive: 10

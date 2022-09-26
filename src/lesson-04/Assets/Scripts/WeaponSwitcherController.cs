@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /**
@@ -8,14 +9,27 @@ using UnityEngine;
 public class WeaponSwitcherController : MonoBehaviour
 {
     /**
-     * Assigned cannon type.
+     * Assigned cannon.
      * 
-     * @param int
-     *   Cannon type index.
+     * @param GameObject
+     *   Cannon object.
      */
-    [SerializeField] private int cannonType;
-    public int CannonType { get => cannonType; }
+    [SerializeField] private GameObject cannon;
 
+    /**
+     * Assigned cannon's controller.
+     * 
+     * @param CannonController
+     */
+    private CannonController cannonController;
+
+    /**
+     * {@inheritdoc}
+     */
+    private void Awake()
+    {
+        cannonController = cannon.GetComponent<CannonController>();
+    }
     /**
      * Triggers weapon switching.
      * 
@@ -26,9 +40,9 @@ public class WeaponSwitcherController : MonoBehaviour
      */
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.name == "RobotCollider")
+        if (collider.gameObject.TryGetComponent(out PlayerController Player))
         {
-            GameManager.Instance.Player.GetComponent<PlayerController>().SwitchCannon(gameObject);
+            Player.SwitchCannon(cannonController);
         }
     }
 }
