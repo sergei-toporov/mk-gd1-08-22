@@ -1,14 +1,7 @@
-Lesson #5: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-05
-- Assets + Android build
+Lesson #4:
 
-Lesson #4: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-04
-- Assets
+- W/A/S/D - movement
+- Space - shooting
 
-Lesson #3: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-03
-- Assets + Android build
-
-Lesson #2: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-02
-- Assets
-
-Lesson #1: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-01
-- Assets + Windows build
+- White boxes - targets
+- Color pillars - weapon switchers
