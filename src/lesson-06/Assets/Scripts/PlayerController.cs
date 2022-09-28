@@ -212,8 +212,8 @@ public class PlayerController : MonoBehaviour
         Vector3 rotatedMovement = Quaternion.Euler(0.0f, CharacterCamera.transform.rotation.eulerAngles.y, 0.0f) * movement.normalized;
         Vector3 verticalMovement = Vector3.up * speedY;
 
-        float currentSpeed = isSprinting ? sprintSpeed : movementSpeed;
         isSprinting = Input.GetKey(KeyCode.LeftShift);
+        float currentSpeed = isSprinting ? sprintSpeed : movementSpeed;        
         Controller.Move((verticalMovement + rotatedMovement * currentSpeed) * Time.deltaTime);
 
         if (rotatedMovement.sqrMagnitude > 0.0f)
