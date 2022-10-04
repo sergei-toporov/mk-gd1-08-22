@@ -1,10 +1,18 @@
-Lesson #5:
 
-Keyboard:
-* W/A/S/D - movement
-* Space - jumping
-* R/F - camera pitch
+Lesson #6: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-06
+- Assets
 
-Touch:
-* Single touch and hold - rotate and move forward
-* Single touch&hold + second tap - jumping.
+Lesson #5: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-05
+- Assets + Android build
+
+Lesson #4: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-04
+- Assets
+
+Lesson #3: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-03
+- Assets + Android build
+
+Lesson #2: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-02
+- Assets
+
+Lesson #1: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-01
+- Assets + Windows build
