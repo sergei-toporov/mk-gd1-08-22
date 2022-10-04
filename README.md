@@ -1,3 +1,8 @@
+Lesson #8: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-08
+- Assets
+
+Lesson #7: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-07
+- Assets
 
 Lesson #6: https://github.com/sergei-toporov/mk-gd1-08-22/tree/lesson-06
 - Assets
