@@ -4917,4 +4917,5 @@ MonoBehaviour:
   explosionRadius: 0
   explosionForce: 0
   timeToLive: 10
-  collisionExplosionFX: {fileID: 1224256963511966102, guid: 25b8560518e1c314288a1c501ec24a49, type: 3}
+  collisionVFX: {fileID: 1224256963511966102, guid: 25b8560518e1c314288a1c501ec24a49, type: 3}
+  explosionVFX: {fileID: 0}

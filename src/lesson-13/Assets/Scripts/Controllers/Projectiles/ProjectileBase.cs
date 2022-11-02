@@ -51,12 +51,18 @@ public class ProjectileBase : MonoBehaviour
     public Rigidbody ProjectileRb { get => projectileRb; }
 
     /**
-     * OnCollision visual effect.
+     * Collision visual effect.
      * 
      * @param ParticleSystem
      */
-    [SerializeField] protected ParticleSystem collisionExplosionFX;
-    public ParticleSystem CollisionExplosionFX { get => collisionExplosionFX; }
+    [SerializeField] protected ParticleSystem collisionVFX;
+
+    /**
+     * Explosion visual effect.
+     * 
+     * @param ParticleSystem
+     */
+    [SerializeField] protected ParticleSystem explosionVFX;
 
     /**
      * {@inheritDoc}
@@ -112,9 +118,9 @@ public class ProjectileBase : MonoBehaviour
         
         if (collision.gameObject.GetComponent<PlayerController>() == null && collision.gameObject.GetComponent<ProjectileBase>() == null)
         {
-            if (collisionExplosionFX != null)
+            if (collisionVFX != null)
             {
-                Instantiate(collisionExplosionFX, gameObject.transform.position, gameObject.transform.rotation);
+                Instantiate(collisionVFX, gameObject.transform.position, gameObject.transform.rotation);
             }
 
             if (isExplodable)
@@ -137,7 +143,8 @@ public class ProjectileBase : MonoBehaviour
      */
     protected void ExplodeProjectile()
     {
-        Collider[] targets = Physics.OverlapSphere(transform.position, explosionRadius);
+        Instantiate(explosionVFX, gameObject.transform.position, gameObject.transform.rotation);
+        Collider[] targets = Physics.OverlapSphere(transform.position, explosionRadius);        
 
         foreach (Collider target in targets)
         {

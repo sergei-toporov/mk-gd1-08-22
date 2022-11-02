@@ -83,7 +83,8 @@ MonoBehaviour:
   explosionRadius: 10
   explosionForce: 15000
   timeToLive: 10
-  collisionExplosionFX: {fileID: 7980090679235572708, guid: 85eeaa3646a982a40bae267adb4b7641, type: 3}
+  collisionVFX: {fileID: 1224256963511966102, guid: 25b8560518e1c314288a1c501ec24a49, type: 3}
+  explosionVFX: {fileID: 7980090679235572708, guid: 85eeaa3646a982a40bae267adb4b7641, type: 3}
 --- !u!96 &449203582115529746
 TrailRenderer:
   serializedVersion: 3
