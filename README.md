@@ -1,3 +1,0 @@
-- W/A/S/D - movement
-- Space - Shooting
-- R - targets restore
