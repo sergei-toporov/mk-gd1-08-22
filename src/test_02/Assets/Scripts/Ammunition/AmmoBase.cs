@@ -4,28 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[Serializable]
-public struct Data
-{
-    public string Key;
-    public GameObject StartVFX;
-    public GameObject ExplosionVFX;
-    public float LiveTime;
-    public float ReactionTime;
-    public int GunIndex;
-}
-
 public class AmmoBase : MonoBehaviour
 {
     [SerializeField] protected int gun = 0;
     public int Gun { get => gun; }
-    [SerializeField] protected List<Data> Data;
     [SerializeField] protected bool isCollided = false;
+    [SerializeField] protected string ammoKey;
 
     void Start()
     {
-        var data = Data.Single(s => gameObject.name.Contains(s.Key));
-        var effectInstance = Instantiate(data.StartVFX, transform.position, Quaternion.identity);
+        if (ammoKey == null)
+        {
+            Debug.LogError("Ammo Key value is not set");
+        }
+
+        var ammoData = BulletManager.Manager.GetAmmoByKey(ammoKey);
+        //var data = Data.Single(s => gameObject.name.Contains(s.Key));
+        var effectInstance = Instantiate(ammoData.StartVFX, transform.position, Quaternion.identity);
         Destroy(effectInstance, effectInstance.GetComponent<ParticleSystem>().main.duration);
 
         var timer = gameObject.AddComponent<Timer>();
@@ -45,20 +40,22 @@ public class AmmoBase : MonoBehaviour
             return;
         }
         isCollided = true;
-        var data = Data.Single(s => gameObject.name.Contains(s.Key));
+        var ammoData = BulletManager.Manager.GetAmmoByKey(ammoKey);
+        //var data = Data.Single(s => gameObject.name.Contains(s.Key));
 
         var timer = gameObject.AddComponent<Timer>();
-        timer.TargetTime = data.ReactionTime;
+        timer.TargetTime = ammoData.ReactionTime;
         timer.OnTime = () =>
         {
-            var data = Data.Single(s => gameObject.name.Contains(s.Key));
-            var effectInstance = Instantiate(data.ExplosionVFX, collision.GetContact(0).point, Quaternion.identity);
+            //var data = Data.Single(s => gameObject.name.Contains(s.Key));
+            var ammoData = BulletManager.Manager.GetAmmoByKey(ammoKey);
+            var effectInstance = Instantiate(ammoData.ExplosionVFX, collision.GetContact(0).point, Quaternion.identity);
             effectInstance.transform.rotation *= Quaternion.FromToRotation(effectInstance.transform.up, collision.GetContact(0).normal);
             Destroy(effectInstance, effectInstance.GetComponent<ParticleSystem>().main.duration);
         };
 
         timer = gameObject.AddComponent<Timer>();
-        timer.TargetTime = data.LiveTime;
+        timer.TargetTime = ammoData.LiveTime;
         timer.OnTime = () =>
         {
             Destroy(gameObject);

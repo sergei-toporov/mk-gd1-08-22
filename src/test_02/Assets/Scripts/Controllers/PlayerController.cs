@@ -72,13 +72,13 @@ public class PlayerController : MonoBehaviour
         shot = false;
     }
 
-    IEnumerator SwitchGun(int gunIndex)
+    IEnumerator SwitchGun()
     {
         isSwitchingGun = true;
         CharacterAnimator.SetTrigger("SwitchGun");
         yield return new WaitForSeconds(0.9f);
         Guns[_currentGun].gameObject.SetActive(false);
-        _currentGun = gunIndex;
+        _currentGun = newGun;
         Guns[_currentGun].gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         isSwitchingGun = false;
@@ -106,7 +106,9 @@ public class PlayerController : MonoBehaviour
     {
         if (providedAmmo.Gun != -1 && _currentGun != providedAmmo.Gun && !isSwitchingGun)
         {
-            StartCoroutine(SwitchGun(providedAmmo.Gun));
+            newGun = providedAmmo.Gun;
+            bullet = providedAmmo.gameObject;
+            StartCoroutine(SwitchGun());
         }
     }
 }
