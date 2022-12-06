@@ -7,5 +7,6 @@ public class SpawnPointPlayer : SpawnPointBase
     protected void Awake()
     {
         Instantiate(spawnablePrefab, transform.position, Quaternion.identity);
+        ArenaManager.Manager.SetPlayerObject(this);
     }
 }

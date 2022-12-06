@@ -13,8 +13,7 @@ public class SpawnableMonster : SpawnableBase
 
         Vector3 dir = (ArenaManager.Manager.Player.transform.position - transform.position).normalized;
         dir.y = -9.81f;
-        Debug.Log($"target: {dir}");
 
-        Controller.SimpleMove(5 * dir);
+        Controller.SimpleMove(stats.MovementSpeedBase * dir);
     }
 }

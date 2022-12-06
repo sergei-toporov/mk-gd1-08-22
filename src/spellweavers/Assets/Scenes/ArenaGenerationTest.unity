@@ -286,6 +286,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floating Joystick
       objectReference: {fileID: 0}
+    - target: {fileID: 8170153791668043269, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
@@ -428,11 +432,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arenaSizeLimits: {x: 4, y: 8}
-  constructionKits:
-  - {fileID: 11400000, guid: 2a4761a4f7958d24eb922b9b44448943, type: 2}
   spawnPointPlayerPrefab: {fileID: 966695635142232845, guid: d840a5bbb22712440805e5aafe031d10, type: 3}
   spawnPointMonsterPrefab: {fileID: 4793853525593810268, guid: 12bbd933a5d325a43bac69702303af5d, type: 3}
   monsterCollection: {fileID: 11400000, guid: 05dfa680cc6e99c488c0349a86cb455e, type: 2}
+  arenaGenerators:
+  - {fileID: 8238802525822190388, guid: 61790e7fc9e3be242a0a1de822107f10, type: 3}
 --- !u!1 &939917520
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,7 +586,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1644395126}
   - component: {fileID: 1644395125}
-  - component: {fileID: 1644395124}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -590,14 +593,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1644395124
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644395123}
-  m_Enabled: 1
 --- !u!20 &1644395125
 Camera:
   m_ObjectHideFlags: 0

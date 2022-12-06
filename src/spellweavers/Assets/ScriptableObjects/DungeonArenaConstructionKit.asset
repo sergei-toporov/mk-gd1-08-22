@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0857151f7fe283e4d95d9e9830825787, type: 3}
+  m_Script: {fileID: 11500000, guid: 41a0f33a6686ae244a8d40ee21513640, type: 3}
   m_Name: DungeonArenaConstructionKit
   m_EditorClassIdentifier: 
   walls:
