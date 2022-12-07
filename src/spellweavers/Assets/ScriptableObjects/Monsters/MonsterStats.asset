@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3de81a3be148b4c853bf335d312542, type: 3}
   m_Name: MonsterStats
   m_EditorClassIdentifier: 
-  healthMax: 50
-  manaMax: 50
+  healthMaxBase: 100
+  manaMaxBase: 100
   movementSpeedBase: 5
   attackSpeedBase: 10
+  Health: 0
+  Mana: 0
+  MovementSpeed: 5
+  AttackSpeed: 10

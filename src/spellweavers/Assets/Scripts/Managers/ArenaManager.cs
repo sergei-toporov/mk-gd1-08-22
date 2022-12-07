@@ -91,6 +91,7 @@ public class ArenaManager : MonoBehaviour
             activeGenerator.GenerateArena(arenaObject);
             activeGenerator.GeneratePlayerSpawnPoint();
             activeGenerator.GenerateMonsterSpawnPoints();
+            StaticBatchingUtility.Combine(arenaObject.gameObject);
             
             hasGeneratedArena = true;
         }

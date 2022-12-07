@@ -11,7 +11,7 @@ public class StatBarBase : MonoBehaviour
     protected UnityAction barValueChange;
     public UnityAction BarValueChange { get => barValueChange; }
 
-    protected virtual void Awake()
+    protected void Awake()
     {
         if (!TryGetComponent(out Slider component))
         {
@@ -40,11 +40,19 @@ public class StatBarBase : MonoBehaviour
 
     protected void FakeUpdate()
     {
+        Debug.Log("FakeUpdate");
         return;
     }
 
     protected virtual void UpdateBar()
     {
+        Debug.Log("BaseBarUpdate");
         return;
+    }
+
+    protected void SetInitialValues(float value, float max)
+    {
+        slider.value = value;
+        slider.maxValue = max;
     }
 }

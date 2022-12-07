@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32962bbd1a11f9d4db1bb8a93111f518, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  healthMax: 100
-  manaMax: 100
-  movementSpeedBase: 30
-  attackSpeedBase: 20
+  healthMaxBase: 100
+  manaMaxBase: 100
+  movementSpeedBase: 20
+  attackSpeedBase: 10
+  Health: 0
+  Mana: 0
+  MovementSpeed: 30
+  AttackSpeed: 20

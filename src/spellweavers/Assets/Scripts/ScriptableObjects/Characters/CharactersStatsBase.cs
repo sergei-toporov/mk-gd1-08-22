@@ -19,17 +19,9 @@ public class CharactersStatsBase : ScriptableObject
     [SerializeField] protected float attackSpeedBase;
     public float AttackSpeedBase { get => attackSpeedBase; }
 
-    protected float health;
-    public float Health { get => health; }
-
-    protected float mana;
-    public float Mana { get => mana; }
-
-    protected float movementSpeed;
-    public float MovementSpeed { get => movementSpeed; }
-
-    protected float attackSpeed;
-    public float AttackSpeed { get => attackSpeed; }
-
+    public float Health;
+    public float Mana;
+    public float MovementSpeed;
+    public float AttackSpeed;
 
 }

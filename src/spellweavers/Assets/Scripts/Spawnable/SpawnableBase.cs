@@ -36,6 +36,11 @@ public class SpawnableBase : MonoBehaviour
         {
             spawnableCanvas.gameObject.SetActive(false);
         }
+
+        stats.Health = stats.HealthMaxBase;
+        stats.Mana = stats.ManaMaxBase;
+        stats.MovementSpeed = stats.MovementSpeedBase;
+        stats.AttackSpeed = stats.AttackSpeedBase;
     }
 
     protected bool InitialCheck()
