@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc43acc3d152424e9c3236d5f66bc61, type: 3}
+  m_Name: ProtoMonstersCollection
+  m_EditorClassIdentifier: 
+  collection:
+  - {fileID: 4242925449829349072, guid: 532cb8e626fbaf745bd20cbb8ac33002, type: 3}
+  - {fileID: 3286285211130611615, guid: af352518ce9ac3a4bbfff0541e1a2fcb, type: 3}
+  - {fileID: 6356326470243513372, guid: 396cb3f10664b0f4ba2285b1eb6364bc, type: 3}
