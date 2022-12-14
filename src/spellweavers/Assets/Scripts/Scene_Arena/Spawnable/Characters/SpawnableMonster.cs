@@ -11,12 +11,18 @@ public class SpawnableMonster : SpawnableBase
 
     protected void Update()
     {
-        transform.LookAt(ArenaManager.Manager.Player.transform);
+        Vector3 lookAt = new Vector3(
+            ArenaManager.Manager.Player.transform.position.x,
+            0.0f,
+            ArenaManager.Manager.Player.transform.position.z
+            );
+        //transform.LookAt(ArenaManager.Manager.Player.transform);
+        transform.LookAt(lookAt);
 
         Vector3 dir = (ArenaManager.Manager.Player.transform.position - transform.position).normalized;
         dir.y = -9.81f;
 
-        Controller.SimpleMove(stats.MovementSpeedBase * dir);
+        Controller.SimpleMove(charStats.movementSpeed * dir);
     }
 
 
@@ -79,12 +85,12 @@ public class SpawnableMonster : SpawnableBase
     {
         while (isFighting)
         {
-            Stats.Health -= 5.0f;
-            if (Stats.Health <= 0.0f)
+            charStats.health -= 5.0f;
+            if (charStats.health <= 0.0f)
             {
                 Destroy(gameObject);
             }
-            Debug.Log($"{name} Health: {Stats.Health}");
+            
             healthBar.BarValueChange.Invoke();
             yield return new WaitForSeconds(1.0f);
         }

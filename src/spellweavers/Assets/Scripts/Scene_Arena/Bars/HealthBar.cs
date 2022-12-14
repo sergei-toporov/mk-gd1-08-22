@@ -5,23 +5,19 @@ using UnityEngine.Events;
 
 public class HealthBar : StatBarBase
 {
-    protected SpawnableBase stats;
+    protected SpawnableBase parentObject;
     protected void Start()
     {
-        Debug.Log("PHPB Start");
-        SpawnableBase spawnableStats = GetComponentInParent<SpawnableBase>();
-        if (spawnableStats != null)
+        parentObject = GetComponentInParent<SpawnableBase>();
+        if (parentObject != null)
         {
-            Debug.Log("PlayerHPBar init");
             barValueChange = UpdateBar;
-            stats = spawnableStats;
-            SetInitialValues(stats.Stats.HealthMaxBase, stats.Stats.HealthMaxBase);
+            SetInitialValues(parentObject.CharStats.healthBase, parentObject.CharStats.healthBase);
         }
     }
 
     protected override void UpdateBar()
     {
-        Debug.Log("Bar updated");
-        slider.value = stats.Stats.Health;
+        slider.value = parentObject.CharStats.health;
     }
 }

@@ -6,7 +6,7 @@ public class ArenaManager : MonoBehaviour
     protected static ArenaManager manager;
     public static ArenaManager Manager { get => manager; }
 
-    protected readonly Vector2Int arenaSizeLimitsDefault = new(6, 12);
+    protected readonly Vector2Int arenaSizeLimitsDefault = new(6, 50);
 
     [Tooltip("A border values for the arena size in one dimension. These values will be used to get amount of rows and columns. If any value is lesser or bigger than the default, it'll be reset to one of the default limits.")]
     

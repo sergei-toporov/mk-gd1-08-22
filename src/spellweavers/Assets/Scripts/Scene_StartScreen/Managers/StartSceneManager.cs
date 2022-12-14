@@ -80,8 +80,6 @@ public class StartSceneManager : MonoBehaviour
 
     protected void InitializeUI()
     {
-        Debug.Log($"TTSS name / status: {tapToStartScreen.name} / {tapToStartScreen.enabled}");
-        //tapToStartScreen.enabled = true;
         tapToStartScreen.StartFlashing();
     }
 }

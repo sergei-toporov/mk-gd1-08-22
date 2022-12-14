@@ -43,7 +43,6 @@ public class TapToStartController : MonoBehaviour
 
     public void MakeVisible()
     {
-        Debug.Log($"Visible text: {text.text}");
         text.enabled = true;
     }
 

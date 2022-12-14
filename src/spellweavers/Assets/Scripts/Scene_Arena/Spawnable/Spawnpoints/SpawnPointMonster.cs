@@ -9,9 +9,15 @@ public class SpawnPointMonster : SpawnPointBase
     protected int currentSpawns = 0;
     protected float spawnDelay = 4.0f;
 
-    protected void Awake()
+    protected override void Awake()
     {
-        spawnablePrefab = ArenaManager.Manager.MonsterCollection.GetRandomPrefab();
+        base.Awake();
+        if (spawnablePrefab == null)
+        {
+            CharacterClassMetadata data = ClassesManager.Manager.MonsterClasses.GetRandomClass();
+            spawnablePrefab = data.defaultPrefab;
+            spawnablePrefab.AddBaseStats(data);
+        }
         StartCoroutine(SpawnCoroutine());
     }
 

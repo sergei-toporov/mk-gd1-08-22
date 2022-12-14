@@ -12,16 +12,13 @@ public class PlayerController : MonoBehaviour
     protected CharacterController playerMover;
     public CharacterController PlayerMover { get => playerMover ?? GetComponent<CharacterController>(); }
 
-    protected SpawnablePlayer playerStats;
+    protected SpawnablePlayer playerObject;
 
     // Start is called before the first frame update
     void Start()
     {
         joystick = FindObjectOfType<Joystick>();
-        if (TryGetComponent(out SpawnablePlayer stats)) {
-            playerStats = stats;
-        }
-        Debug.Log($"Player stats (Controller): {playerStats.Stats.Health} / {playerStats.Stats.HealthMaxBase}");
+        playerObject = gameObject.GetComponent<SpawnablePlayer>();
     }
 
     // Update is called once per frame
@@ -31,7 +28,7 @@ public class PlayerController : MonoBehaviour
         float z = Joystick.Vertical;
         Vector3 movementDirection = new Vector3(x, 0.0f, z);
 
-        PlayerMover.SimpleMove(playerStats.Stats.MovementSpeedBase * movementDirection);
+        PlayerMover.SimpleMove(playerObject.CharStats.movementSpeedBase * movementDirection);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -41,10 +38,6 @@ public class PlayerController : MonoBehaviour
 
     protected void TakeDamage()
     {
-        
-        playerStats.Stats.Health -= 5.0f;
-        playerStats.HealthBar.BarValueChange.Invoke();
-        Debug.Log($"Damage taken. Health is now: {playerStats.Stats.Health}");
-        Debug.Log($"HPb inv: {playerStats.HealthBar.BarValueChange}");
+        playerObject.TakeDamage();
     }
 }

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd213fd572367de429fcb058886e31c5, type: 3}
+  m_Name: ClassesListMain
+  m_EditorClassIdentifier: 
+  collection:
+    list:
+    - Key: warrior
+      Value:
+        defaultName: Warrior
+        defaultPrefab: {fileID: 7430552884334164416, guid: 98706fb1c07a49d4ca7a451f516b49fd, type: 3}
+        baseHealth: 150
+        baseMana: 50
+        baseMovementSpeed: 4
+        baseAttackSpeed: 1
+        baseHealthRegeneration: 1.5
+        baseManaRegeneration: 0.5
+    - Key: mage
+      Value:
+        defaultName: Mage
+        defaultPrefab: {fileID: 2845310602833221685, guid: 83887d255693bc14292cc1b986562d9a, type: 3}
+        baseHealth: 75
+        baseMana: 200
+        baseMovementSpeed: 3
+        baseAttackSpeed: 0.3
+        baseHealthRegeneration: 0.5
+        baseManaRegeneration: 1.5
+    - Key: ranger
+      Value:
+        defaultName: Ranger
+        defaultPrefab: {fileID: 9070152293999701846, guid: add7b7526d57b20428848ec3772a304a, type: 3}
+        baseHealth: 100
+        baseMana: 120
+        baseMovementSpeed: 5
+        baseAttackSpeed: 2
+        baseHealthRegeneration: 1
+        baseManaRegeneration: 0.8
+    keyCollision: 0
