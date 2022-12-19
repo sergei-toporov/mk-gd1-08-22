@@ -52,7 +52,12 @@ public class StatBarBase : MonoBehaviour
 
     protected void SetInitialValues(float value, float max)
     {
-        slider.maxValue = max;
-        slider.value = value;        
+        SetValues(value, max);
     }
+
+    protected void SetValues(float value, float max)
+    {
+        slider.maxValue = max;
+        slider.value = value;
+    } 
 }

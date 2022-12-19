@@ -8,13 +8,13 @@ public class TapToStartController : MonoBehaviour
 
     protected float flashingDelayValue = .75f;
     protected TextMeshProUGUI text;
-    protected WaitForSeconds flashingDelay;
+    protected WaitForSecondsRealtime flashingDelay;
     protected int initAttempts = 0;
     protected int maxInitAttempts = 10;
 
     protected void Awake()
     {
-        flashingDelay = new WaitForSeconds(flashingDelayValue);
+        flashingDelay = new WaitForSecondsRealtime(flashingDelayValue);
         InitializeText();
     }
 

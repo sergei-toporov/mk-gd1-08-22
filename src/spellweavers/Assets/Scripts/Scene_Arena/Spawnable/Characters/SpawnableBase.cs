@@ -1,10 +1,11 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
+[Serializable]
 public struct CharacterStats
 {
     public float healthBase;
@@ -13,8 +14,14 @@ public struct CharacterStats
     public float mana;
     public float movementSpeedBase;
     public float movementSpeed;
-    public float attackSpeedBase;
-    public float attackSpeed;
+    public float attacksPerMinuteBase;
+    public float attacksPerMinute;
+    public float attackRangeBase;
+    public float attackRange;
+    public float damageBase;
+    public float damage;
+    public float damageRadiusBase;
+    public float damageRadius;
     public float healthRegenBase;
     public float healthRegen;
     public float manaRegenBase;
@@ -31,11 +38,12 @@ public class SpawnableBase : MonoBehaviour
 
     protected Canvas spawnableCanvas;
 
-    protected CharacterStats charStats;
+    [SerializeField] protected CharacterStats charStats;
     public CharacterStats CharStats { get => charStats; }
 
     [SerializeField] protected CharacterClassMetadata baseStats;
     public CharacterClassMetadata BaseStats { get => baseStats; }
+
 
     protected virtual void Awake()
     {
@@ -86,8 +94,8 @@ public class SpawnableBase : MonoBehaviour
         charStats.manaBase = baseStats.baseMana;
         charStats.movementSpeed = baseStats.baseMovementSpeed;
         charStats.movementSpeedBase = baseStats.baseMovementSpeed;
-        charStats.attackSpeed = baseStats.baseAttackSpeed;
-        charStats.attackSpeedBase = baseStats.baseAttackSpeed;
+        charStats.attacksPerMinute = baseStats.baseAttacksPerMinute;
+        charStats.attacksPerMinuteBase = baseStats.baseAttacksPerMinute;
         charStats.manaRegen = baseStats.baseManaRegeneration;
         charStats.manaRegenBase = baseStats.baseManaRegeneration;
         charStats.healthRegen = baseStats.baseHealthRegeneration;
@@ -108,5 +116,13 @@ public class SpawnableBase : MonoBehaviour
     public void AddBaseStats(CharacterClassMetadata metadata)
     {
         baseStats = metadata;
+    }
+
+    protected void UpdateBars()
+    {
+        if (healthBar.gameObject.scene.rootCount != 0)
+        {
+            healthBar.ResetValues();
+        }
     }
 }

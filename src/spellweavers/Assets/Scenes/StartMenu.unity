@@ -167,7 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852a29217bb85a64a9e481ca58c9cebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  classesList: {fileID: 11400000, guid: 51527543dd058184a848687eb9dd5102, type: 2}
+  playerClasses: {fileID: 11400000, guid: 850d2a4774431d5478715b912dc64591, type: 2}
+  monsterClasses: {fileID: 0}
 --- !u!1 &238858453
 GameObject:
   m_ObjectHideFlags: 0

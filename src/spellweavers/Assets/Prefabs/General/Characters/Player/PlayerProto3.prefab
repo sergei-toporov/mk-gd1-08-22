@@ -127,7 +127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7487620165052677168}
   m_LocalRotation: {x: 0.61520165, y: -0, z: -0, w: 0.7883698}
-  m_LocalPosition: {x: 0, y: 23, z: -10}
+  m_LocalPosition: {x: 0, y: 14, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -231,7 +231,7 @@ Transform:
   - {fileID: 2456686148576584761}
   - {fileID: 1503556921303066773}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &653115315803417663
 MeshFilter:
@@ -370,13 +370,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 5001383745592562909, guid: 3be35e56ce07b4d43bbdb205ba357225, type: 3}
+  charStats:
+    healthBase: 0
+    health: 0
+    manaBase: 0
+    mana: 0
+    movementSpeedBase: 0
+    movementSpeed: 0
+    attacksPerMinuteBase: 0
+    attacksPerMinute: 0
+    attackRangeBase: 0
+    attackRange: 0
+    damageBase: 0
+    damage: 0
+    damageRadiusBase: 0
+    damageRadius: 0
+    healthRegenBase: 0
+    healthRegen: 0
+    manaRegenBase: 0
+    manaRegen: 0
   baseStats:
     defaultName: Mage
     defaultPrefab: {fileID: 9070152293999701846}
     baseHealth: 80
     baseMana: 200
     baseMovementSpeed: 5
-    baseAttackSpeed: 2
+    baseAttacksPerMinute: 0
+    baseAttackRange: 0
+    baseDamage: 0
+    baseDamageRadius: 0
     baseHealthRegeneration: 0.6
     baseManaRegeneration: 2
 --- !u!114 &5865771911555131325
@@ -391,3 +413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d155a0fde1577374a92313a0ff155407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  feats:
+    list: []
+    keyCollision: 0

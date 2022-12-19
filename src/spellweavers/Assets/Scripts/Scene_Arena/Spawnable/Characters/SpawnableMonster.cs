@@ -56,7 +56,7 @@ public class SpawnableMonster : SpawnableBase
     {
         if (other.TryGetComponent(out PlayerController Player))
         {
-            Debug.Log("TriggerEnter");
+            //Debug.Log("TriggerEnter");
             if (!isFighting)
             {
                 isFighting = true;
@@ -69,7 +69,7 @@ public class SpawnableMonster : SpawnableBase
     {
         if (other.TryGetComponent(out PlayerController Player))
         {
-            Debug.Log("TriggerExit");
+            //Debug.Log("TriggerExit");
             if (isFighting)
             {
                 isFighting = false;

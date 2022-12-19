@@ -15,7 +15,7 @@ MonoBehaviour:
   scenesList:
     list:
     - Key: StartScreenScene
-      Value: {fileID: 102900000, guid: 639160b047ee64443a4d4e3a87121836, type: 3}
+      Value: StartMenu
     - Key: ArenaScene
-      Value: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
+      Value: ArenaGenerationTest
     keyCollision: 0

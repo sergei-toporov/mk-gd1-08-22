@@ -15,6 +15,7 @@ public class Generator4x4 : ArenaGeneratorBase
     protected Vector2Int arenaSizes;
 
     protected ArenaRootObject arenaRootObject;
+    protected ArenaConstructionObject constructionStore;
     protected Transform[] floorPlates;
     protected Transform[] walls;
     protected Transform[] obstacles;
@@ -42,7 +43,10 @@ public class Generator4x4 : ArenaGeneratorBase
     /// </summary>
     public override void GenerateArena(ArenaRootObject rootObject)
     {
+
         arenaRootObject = rootObject;
+        constructionStore = rootObject.GetComponentInChildren<ArenaConstructionObject>();
+
         arenaSizes = ArenaManager.Manager.ArenaSizes;
         ArenaConstructionKit4x4 kit = (ArenaConstructionKit4x4)constructionKits[Random.Range(0, constructionKits.Count)];
 
@@ -81,7 +85,7 @@ public class Generator4x4 : ArenaGeneratorBase
         for (int i = 0; i < positions.Length; i++)
         {
             point = Instantiate(ArenaManager.Manager.SpawnPointMonsterPrefab, positions[i], Quaternion.identity);
-            point.transform.position += new Vector3(0.0f, point.GetComponent<Collider>().bounds.size.y / 2, 0.0f);
+            point.transform.position += new Vector3(0.0f, 1.0f, 0.0f);
             point.transform.parent = arenaRootObject.transform;
             point.gameObject.SetActive(true);
         }
@@ -97,7 +101,7 @@ public class Generator4x4 : ArenaGeneratorBase
         SpawnPointPlayer point = Instantiate(ArenaManager.Manager.SpawnPointPlayerPrefab, Vector3.zero, Quaternion.identity);
         point.gameObject.transform.position += new Vector3(
             arenaDimensions.x / 2,
-            point.GetComponent<Collider>().bounds.size.y / 2,
+            1.0f,
             arenaDimensions.y / 2
             );
         point.transform.parent = arenaRootObject.transform;
@@ -164,7 +168,7 @@ public class Generator4x4 : ArenaGeneratorBase
             {
                 position = new Vector3(row * floorMeshSize.x, 0.0f, col * floorMeshSize.z);
                 arenaComponent = Instantiate(floorPlates[row + col], position, Quaternion.identity);
-                arenaComponent.transform.parent = arenaRootObject.transform;
+                arenaComponent.transform.parent = constructionStore.transform;
             }
         }
     }
@@ -186,7 +190,7 @@ public class Generator4x4 : ArenaGeneratorBase
         for (int i = 0; i < arenaSizes.x; i++)
         {
             arenaComponent = Instantiate(walls[Random.Range(0, wallsCount)], wallCoords, rotation);
-            arenaComponent.parent = arenaRootObject.transform;
+            arenaComponent.parent = constructionStore.transform;
             wallCoords.x -= floorMeshSize.x;
         }
 
@@ -194,7 +198,7 @@ public class Generator4x4 : ArenaGeneratorBase
         for (int i = 0; i < arenaSizes.y; i++)
         {
             arenaComponent = Instantiate(walls[Random.Range(0, wallsCount)], wallCoords, rotation);
-            arenaComponent.parent = arenaRootObject.transform;
+            arenaComponent.parent = constructionStore.transform;
             wallCoords.z += floorMeshSize.z;
         }
 
@@ -202,7 +206,7 @@ public class Generator4x4 : ArenaGeneratorBase
         for (int i = 0; i < arenaSizes.x; i++)
         {
             arenaComponent = Instantiate(walls[Random.Range(0, wallsCount)], wallCoords, rotation);
-            arenaComponent.parent = arenaRootObject.transform;
+            arenaComponent.parent = constructionStore.transform;
             wallCoords.x += floorMeshSize.x;
         }
 
@@ -210,7 +214,7 @@ public class Generator4x4 : ArenaGeneratorBase
         for (int i = 0; i < arenaSizes.y; i++)
         {
             arenaComponent = Instantiate(walls[Random.Range(0, wallsCount)], wallCoords, rotation);
-            arenaComponent.parent = arenaRootObject.transform;
+            arenaComponent.parent = constructionStore.transform;
             wallCoords.z -= floorMeshSize.z;
         }
     }
@@ -235,7 +239,7 @@ public class Generator4x4 : ArenaGeneratorBase
             arenaComponent = Instantiate(obstacles[Random.Range(0, obstaclesCount)], position, Quaternion.identity);
             obstacleCenter = arenaComponent.GetComponent<MeshFilter>().sharedMesh.bounds.size.y / 2;
             arenaComponent.position += new Vector3(0.0f, obstacleCenter, 0.0f);
-            arenaComponent.parent = arenaRootObject.transform;
+            arenaComponent.parent = constructionStore.transform;
         }
     }
 

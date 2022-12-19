@@ -12,12 +12,17 @@ public class HealthBar : StatBarBase
         if (parentObject != null)
         {
             barValueChange = UpdateBar;
-            SetInitialValues(parentObject.CharStats.healthBase, parentObject.CharStats.healthBase);
+            SetValues(parentObject.CharStats.healthBase, parentObject.CharStats.healthBase);
         }
     }
 
     protected override void UpdateBar()
     {
         slider.value = parentObject.CharStats.health;
+    }
+
+    public void ResetValues()
+    {
+        SetValues(parentObject.CharStats.health, parentObject.CharStats.healthBase);
     }
 }

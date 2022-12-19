@@ -14,34 +14,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collection:
     list:
-    - Key: warrior
+    - Key: Player_Mage
       Value:
-        defaultName: Warrior
+        defaultName: Mage
         defaultPrefab: {fileID: 7430552884334164416, guid: 98706fb1c07a49d4ca7a451f516b49fd, type: 3}
-        baseHealth: 175
-        baseMana: 75
-        baseMovementSpeed: 4
-        baseAttackSpeed: 4
-        baseHealthRegeneration: 1.5
-        baseManaRegeneration: 0.7
-    - Key: ranger
+        baseHealth: 80
+        baseMana: 200
+        baseMovementSpeed: 5
+        baseAttacksPerMinute: 20
+        baseAttackRange: 999999
+        baseDamage: 5
+        baseDamageRadius: 20
+        baseHealthRegeneration: 0.5
+        baseManaRegeneration: 2
+    - Key: Player_Ranger
       Value:
         defaultName: Ranger
         defaultPrefab: {fileID: 2845310602833221685, guid: 83887d255693bc14292cc1b986562d9a, type: 3}
         baseHealth: 125
         baseMana: 100
         baseMovementSpeed: 6
-        baseAttackSpeed: 6
+        baseAttacksPerMinute: 80
+        baseAttackRange: 40
+        baseDamage: 3
+        baseDamageRadius: 0.5
         baseHealthRegeneration: 1
-        baseManaRegeneration: 0.9
-    - Key: mage
+        baseManaRegeneration: 0.8
+    - Key: Player_Warrior
       Value:
-        defaultName: Mage
+        defaultName: Warrior
         defaultPrefab: {fileID: 9070152293999701846, guid: add7b7526d57b20428848ec3772a304a, type: 3}
-        baseHealth: 80
-        baseMana: 200
-        baseMovementSpeed: 5
-        baseAttackSpeed: 2
-        baseHealthRegeneration: 0.6
-        baseManaRegeneration: 2
+        baseHealth: 175
+        baseMana: 75
+        baseMovementSpeed: 4
+        baseAttacksPerMinute: 40
+        baseAttackRange: 1
+        baseDamage: 10
+        baseDamageRadius: 0
+        baseHealthRegeneration: 1.5
+        baseManaRegeneration: 0.6
     keyCollision: 0

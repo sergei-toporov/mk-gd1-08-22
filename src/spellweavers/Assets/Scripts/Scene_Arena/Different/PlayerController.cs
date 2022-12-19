@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
 
     protected SpawnablePlayer playerObject;
 
+    [SerializeField] protected GenericDictionary<string, PlayerFeat> feats = new GenericDictionary<string, PlayerFeat>();
+    public GenericDictionary<string, PlayerFeat> Feats { get => feats; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +35,80 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TakeDamage();
+            AddFeat("IncreaseBaseHealth");
+            RecalculateStats();
         }
     }
 
     protected void TakeDamage()
     {
         playerObject.TakeDamage();
+    }
+
+    public void AddFeat(string key)
+    {
+        PlayerFeat feat;
+        if (feats.TryGetValue(key, out feat))
+        {
+            feats.Remove(key);
+            feat.currentLevel++;
+            RecalculateFeatUpgradeCost(ref feat);
+            feats.Add(key, feat);
+            RecalculateStats();
+            return;
+        }
+        
+        if (ArenaManager.Manager.AvailablePlayerFeats.TryGetValue(key, out feat)) {
+            feat.currentLevel++;
+            RecalculateFeatUpgradeCost(ref feat);
+            feats.Add(key, feat);
+            RecalculateStats();
+            return;
+        }
+    }
+
+    /*public void RemoveFeat(PlayerFeat feat, bool forceRemoval = false)
+    {
+        if (feats.TryGetValue(feat, out int featLevel))
+        {
+            feats.Remove(feat);
+            if (forceRemoval)
+            {
+                return;
+            }
+
+            if (featLevel > 1)
+            {
+                feat.currentLevel--;
+                RecalculateFeatUpgradeCost(ref feat);
+                feats.Add(feat, feat.currentLevel);
+            }
+            
+        }
+    }*/
+
+    protected void RecalculateStats()
+    {
+        playerObject.RecalculateStats();
+    }
+
+    protected void RecalculateFeatUpgradeCost(ref PlayerFeat feat)
+    {
+        feat.currentImprovementCost = (feat.improvementCostBase + feat.currentLevel) + ((feat.improvementCostBase + feat.currentLevel) / 100 * feat.currentLevel);
+    }
+
+    public int GetFeatCurrentLevel(string key)
+    {
+        if (feats.TryGetValue(key, out PlayerFeat feat))
+        {
+            return feat.currentLevel;
+        }
+
+        return 0;
+    }
+
+    public PlayerFeat GetPlayerFeat(string key)
+    {
+        return feats.TryGetValue(key, out PlayerFeat feat) ? feat : ArenaManager.Manager.AvailablePlayerFeats[key];
     }
 }

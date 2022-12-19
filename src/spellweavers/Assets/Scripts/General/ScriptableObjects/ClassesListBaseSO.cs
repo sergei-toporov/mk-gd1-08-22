@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-
 
 [Serializable]
 public struct CharacterClassMetadata
@@ -13,7 +10,10 @@ public struct CharacterClassMetadata
     public float baseHealth;
     public float baseMana;
     public float baseMovementSpeed;
-    public float baseAttackSpeed;
+    public float baseAttacksPerMinute;
+    public float baseAttackRange;
+    public float baseDamage;
+    public float baseDamageRadius;
     public float baseHealthRegeneration;
     public float baseManaRegeneration;
 }
@@ -34,7 +34,7 @@ public class ClassesListBaseSO : ScriptableObject
             {
                 keys[counter] = key;
                 counter++;
-            }
+            }        
             return collection[keys[UnityEngine.Random.Range(0, collectionCount)]];
         }
 
