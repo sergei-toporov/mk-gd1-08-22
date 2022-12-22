@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public enum ArenaStates
 {
+    Initialization,
+    InitializationError,
     Ingame,
     PauseScreen,
     FeatsUpgradeScreen,
@@ -22,10 +24,14 @@ public class ArenaWorkflowManager : MonoBehaviour
 
     protected ArenaUIController arenaUIController;
 
-    [SerializeField] protected ScenesListSO scenesList;
+    protected int initTriesCounter = 0;
+    protected int initTriesMax = 100;
+
+    protected WaitForEndOfFrame EOF_Object = new();
 
     protected void Awake()
     {
+        
         if (manager != this && manager != null)
         {
             Destroy(this);
@@ -34,32 +40,14 @@ public class ArenaWorkflowManager : MonoBehaviour
         {
             manager = this;
         }
-
-        arenaUIController = FindObjectOfType<ArenaUIController>();
+        SwitchState(ArenaStates.Initialization);
     }
 
     protected void Start()
     {
+        arenaUIController = FindObjectOfType<ArenaUIController>();
         SwitchState(ArenaStates.Ingame);
         ArenaManager.Manager.StartGame();
-    }
-
-    protected void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SwitchState(ArenaStates.PauseScreen);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SwitchState(ArenaStates.Ingame);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SwitchState(ArenaStates.FeatsUpgradeScreen);
-        }
     }
 
     public void SwitchState(ArenaStates state)
@@ -67,6 +55,15 @@ public class ArenaWorkflowManager : MonoBehaviour
         arenaState = state;
         switch (arenaState)
         {
+            case ArenaStates.Initialization:
+                ManagerInitialization();
+                break;
+
+            case ArenaStates.InitializationError:
+                Debug.LogError("Errors occurred during initialization. Please, check logs.");
+                Application.Quit();
+                break;
+
             case ArenaStates.Ingame:
                 arenaUIController.SwitchUI();
                 PauseDisable();
@@ -77,9 +74,11 @@ public class ArenaWorkflowManager : MonoBehaviour
                 arenaUIController.SwitchUI();
                 PauseEnable();
                 break;
+
             case ArenaStates.ReturningToStartScreen:
-                SceneManager.LoadScene(scenesList.GetSceneNameByKey("StartScreenScene"));
+                SceneManager.LoadScene(ArenaResourceManager.Manager.SceneList.GetSceneNameByKey("StartScreenScene"));
                 break;
+
             case ArenaStates.QuittingGame:
                 Application.Quit();
                 break;                
@@ -94,6 +93,25 @@ public class ArenaWorkflowManager : MonoBehaviour
     protected void PauseDisable()
     {
         Time.timeScale = 1.0f;
+    }
+
+    protected void ManagerInitialization()
+    {
+        StartCoroutine(InitArenaResourceManager());
+        if (initTriesCounter == initTriesMax)
+        {
+            Debug.LogError("The 'Arena Resource Manager' has not been initialized.");
+            SwitchState(ArenaStates.InitializationError);
+        }
+        initTriesCounter = 0;
+    }
+
+    protected IEnumerator InitArenaResourceManager()
+    {
+        while (initTriesCounter < initTriesMax || ArenaResourceManager.Manager == null || !ArenaResourceManager.Manager.IsReady) {
+            initTriesCounter++;
+            yield return EOF_Object;
+        }
     }
 
     

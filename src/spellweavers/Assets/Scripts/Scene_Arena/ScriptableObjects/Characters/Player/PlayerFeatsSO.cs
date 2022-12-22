@@ -4,28 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AffectedStat
-{
-    Health,
-    HealthBase,
-    Mana,
-    ManaBase,
-    MovemementSpeed,
-    MovementSpeedBase,
-    AttacksPerMinute,
-    AttacksPerMinuteBase,
-    AttackRange,
-    AttackRangeBase,
-    Damage,
-    DamageBase,
-    DamageRadius,
-    DamageRadiusBase,
-    HealthRegen,
-    HealthRegenBase,
-    ManaRegen,
-    ManaRegenBase,
-}
-
 [Serializable]
 public struct PlayerFeat
 {

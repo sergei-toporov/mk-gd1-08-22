@@ -16,6 +16,8 @@ public struct CharacterClassMetadata
     public float baseDamageRadius;
     public float baseHealthRegeneration;
     public float baseManaRegeneration;
+    public WeaponHitter weaponHitterPrefab;
+    public MonsterDifficultyLevels monsterDifficulty;
 }
 
 public class ClassesListBaseSO : ScriptableObject

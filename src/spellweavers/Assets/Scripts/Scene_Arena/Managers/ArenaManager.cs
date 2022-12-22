@@ -20,15 +20,6 @@ public class ArenaManager : MonoBehaviour
     protected Vector2Int arenaSizes;
     public Vector2Int ArenaSizes { get => arenaSizes; }
 
-    [SerializeField] protected SpawnPointPlayer spawnPointPlayerPrefab;
-    public SpawnPointPlayer SpawnPointPlayerPrefab { get => spawnPointPlayerPrefab; }
-
-    [SerializeField] protected SpawnPointMonster spawnPointMonsterPrefab;
-    public SpawnPointMonster SpawnPointMonsterPrefab { get => spawnPointMonsterPrefab; }
-
-    [SerializeField] protected SpawnableMonstersCollection monsterCollection;
-    public SpawnableMonstersCollection MonsterCollection { get => monsterCollection; }
-
     protected PlayerController player;
     public PlayerController Player { get => player; }
 
@@ -38,14 +29,8 @@ public class ArenaManager : MonoBehaviour
     [SerializeField] protected List<ArenaGeneratorBase> arenaGenerators;
     protected ArenaGeneratorBase activeGenerator;
 
-    [SerializeField] protected PlayerFeatsSO playerFeats;
-    public PlayerFeatsSO PlayerFeats { get => playerFeats; }
-
-    [SerializeField] protected List<string> featsOrder;
-    public List<string> FeatsOrder { get => featsOrder; }
-
-    [SerializeField] protected GenericDictionary<string, PlayerFeat> availablePlayerFeats = new GenericDictionary<string, PlayerFeat>();
-    public GenericDictionary<string, PlayerFeat> AvailablePlayerFeats { get => availablePlayerFeats; }
+    protected float collectedResources = 0;
+    public float CollectedResources { get => collectedResources; }
 
     protected void Awake()
     {
@@ -84,12 +69,6 @@ public class ArenaManager : MonoBehaviour
             return false;
         }
 
-        if (playerFeats == null || playerFeats.Collection.Count == 0)
-        {
-            Debug.Log("No player feats in collection. Add some before continue.");
-            return false;
-        }
-
         return true;
     }
 
@@ -97,18 +76,6 @@ public class ArenaManager : MonoBehaviour
     {
         arenaSizeLimits.x = Mathf.Clamp(arenaSizeLimits.x, arenaSizeLimitsDefault.x, arenaSizeLimitsDefault.y);
         arenaSizeLimits.y = Mathf.Clamp(arenaSizeLimits.y, arenaSizeLimitsDefault.x, arenaSizeLimitsDefault.y);
-        spawnPointPlayerPrefab.gameObject.SetActive(false);
-        spawnPointMonsterPrefab.gameObject.SetActive(false);
-
-        featsOrder = new List<string>(playerFeats.Collection.Count);
-        foreach (string key in playerFeats.Collection.Keys)
-        {
-            featsOrder.Add(key);
-            if (playerFeats.Collection[key].isActive)
-            {
-                availablePlayerFeats.Add(key, playerFeats.Collection[key]);
-            }
-        }
     }
 
     public void StartGame()

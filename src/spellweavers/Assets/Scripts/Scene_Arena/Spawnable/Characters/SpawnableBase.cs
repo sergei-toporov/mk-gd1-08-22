@@ -5,6 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+public enum MonsterDifficultyLevels
+{
+    Easy,
+    Medium,
+    Hard,
+    Boss
+}
+
 [Serializable]
 public struct CharacterStats
 {
@@ -28,7 +36,7 @@ public struct CharacterStats
     public float manaRegen;
 }
 
-public class SpawnableBase : MonoBehaviour
+abstract public class SpawnableBase : MonoBehaviour
 {
     [SerializeField] protected HealthBar healthBarPrefab;
     public HealthBar HealthBarPrefab { get => healthBarPrefab; }
@@ -43,6 +51,11 @@ public class SpawnableBase : MonoBehaviour
 
     [SerializeField] protected CharacterClassMetadata baseStats;
     public CharacterClassMetadata BaseStats { get => baseStats; }
+
+    protected string className;
+    public string ClassName { get => className; }
+    protected WeaponHitter hitterPrefab;
+    public WeaponHitter HitterPrefab { get => hitterPrefab; }
 
 
     protected virtual void Awake()
@@ -67,6 +80,8 @@ public class SpawnableBase : MonoBehaviour
         }
 
         SetStartStats();
+        className = baseStats.defaultName;
+        hitterPrefab = baseStats.weaponHitterPrefab;
     }
 
     protected bool InitialCheck()
@@ -96,21 +111,30 @@ public class SpawnableBase : MonoBehaviour
         charStats.movementSpeedBase = baseStats.baseMovementSpeed;
         charStats.attacksPerMinute = baseStats.baseAttacksPerMinute;
         charStats.attacksPerMinuteBase = baseStats.baseAttacksPerMinute;
+        charStats.attackRange = baseStats.baseAttackRange;
+        charStats.attackRangeBase = baseStats.baseAttackRange;
         charStats.manaRegen = baseStats.baseManaRegeneration;
         charStats.manaRegenBase = baseStats.baseManaRegeneration;
         charStats.healthRegen = baseStats.baseHealthRegeneration;
         charStats.healthRegenBase = baseStats.baseHealthRegeneration;
+        charStats.damage = baseStats.baseDamage;
+        charStats.damageBase = baseStats.baseDamage;
+        charStats.damageRadius = baseStats.baseDamageRadius;
+        charStats.damageRadiusBase = baseStats.baseDamageRadius;
+
     }
 
-    public void TakeDamage() {
-        charStats.health -= 5.0f;
+    public void TakeDamage(SpawnableBase foe) {
+        charStats.health -= foe.CharStats.damage;
+        if (charStats.health <= 0)
+        {
+            CharacterDeath();
+        }
+
         if (healthBar.gameObject.scene.rootCount != 0)
         {
             healthBar.BarValueChange.Invoke();
         }
-        Debug.Log($"Damage taken by {name}. Health is now: {charStats.health}");
-        Debug.Log($"HPb inv: {healthBar.BarValueChange}");
-
     }
 
     public void AddBaseStats(CharacterClassMetadata metadata)
@@ -125,4 +149,6 @@ public class SpawnableBase : MonoBehaviour
             healthBar.ResetValues();
         }
     }
+
+    abstract protected void CharacterDeath();
 }

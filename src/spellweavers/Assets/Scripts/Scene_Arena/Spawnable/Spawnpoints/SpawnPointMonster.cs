@@ -14,7 +14,7 @@ public class SpawnPointMonster : SpawnPointBase
         base.Awake();
         if (spawnablePrefab == null)
         {
-            CharacterClassMetadata data = ClassesManager.Manager.MonsterClasses.GetRandomClass();
+            CharacterClassMetadata data = ArenaResourceManager.Manager.MonsterClassesList.GetRandomClass();
             spawnablePrefab = data.defaultPrefab;
             spawnablePrefab.AddBaseStats(data);
         }

@@ -133,12 +133,12 @@ Transform:
   m_GameObject: {fileID: 8595201393711683723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.352148, y: -16.002342, z: 29.806417}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9197918991369010051}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7465058949875371816
 MeshFilter:
@@ -205,7 +205,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -224,15 +224,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 1880800013895581685, guid: 5d8c0fe4fc6b9c04d8874790b1c3f789, type: 3}
+  charStats:
+    healthBase: 0
+    health: 0
+    manaBase: 0
+    mana: 0
+    movementSpeedBase: 0
+    movementSpeed: 0
+    attacksPerMinuteBase: 0
+    attacksPerMinute: 0
+    attackRangeBase: 0
+    attackRange: 0
+    damageBase: 0
+    damage: 0
+    damageRadiusBase: 0
+    damageRadius: 0
+    healthRegenBase: 0
+    healthRegen: 0
+    manaRegenBase: 0
+    manaRegen: 0
   baseStats:
-    defaultName: npc1
+    defaultName: NPC_Monster_Mage
     defaultPrefab: {fileID: 4242925449829349072}
     baseHealth: 80
     baseMana: 0
     baseMovementSpeed: 3
-    baseAttackSpeed: 4
+    baseAttacksPerMinute: 10
+    baseAttackRange: 80
+    baseDamage: 6
+    baseDamageRadius: 5
     baseHealthRegeneration: 0
     baseManaRegeneration: 0
+    weaponHitterPrefab: {fileID: 0}
 --- !u!143 &-5170557134986651392
 CharacterController:
   m_ObjectHideFlags: 0
@@ -254,7 +277,7 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1
   m_Radius: 0.5
-  m_SlopeLimit: 0
+  m_SlopeLimit: 0.1
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001

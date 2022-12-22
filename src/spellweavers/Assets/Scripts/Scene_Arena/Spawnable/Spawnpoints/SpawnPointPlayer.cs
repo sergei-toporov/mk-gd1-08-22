@@ -10,7 +10,7 @@ public class SpawnPointPlayer : SpawnPointBase
         
         if (spawnablePrefab == null)
         {
-            CharacterClassMetadata data = ClassesManager.Manager.PlayerClasses.GetRandomClass();
+            CharacterClassMetadata data = ArenaResourceManager.Manager.PlayerClassesList.GetRandomClass();
             spawnablePrefab = data.defaultPrefab;
             spawnablePrefab.AddBaseStats(data);
         }        

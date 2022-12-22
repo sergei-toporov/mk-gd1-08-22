@@ -22,11 +22,13 @@ MonoBehaviour:
         baseMana: 200
         baseMovementSpeed: 5
         baseAttacksPerMinute: 20
-        baseAttackRange: 999999
+        baseAttackRange: 65
         baseDamage: 5
         baseDamageRadius: 20
         baseHealthRegeneration: 0.5
         baseManaRegeneration: 2
+        weaponHitterPrefab: {fileID: 5764970848307934579, guid: 56bd59144072b14418fc1f23b46e955d, type: 3}
+        monsterDifficulty: 0
     - Key: Player_Ranger
       Value:
         defaultName: Ranger
@@ -37,9 +39,11 @@ MonoBehaviour:
         baseAttacksPerMinute: 80
         baseAttackRange: 40
         baseDamage: 3
-        baseDamageRadius: 0.5
+        baseDamageRadius: 0
         baseHealthRegeneration: 1
         baseManaRegeneration: 0.8
+        weaponHitterPrefab: {fileID: 2850905165338615257, guid: 711afe121f6fd0f42870704762b4a7f6, type: 3}
+        monsterDifficulty: 0
     - Key: Player_Warrior
       Value:
         defaultName: Warrior
@@ -48,9 +52,11 @@ MonoBehaviour:
         baseMana: 75
         baseMovementSpeed: 4
         baseAttacksPerMinute: 40
-        baseAttackRange: 1
+        baseAttackRange: 0.4
         baseDamage: 10
-        baseDamageRadius: 0
+        baseDamageRadius: 0.01
         baseHealthRegeneration: 1.5
         baseManaRegeneration: 0.6
+        weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
+        monsterDifficulty: 0
     keyCollision: 0

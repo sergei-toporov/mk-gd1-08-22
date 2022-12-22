@@ -14,14 +14,17 @@ public class PlayerController : MonoBehaviour
 
     protected SpawnablePlayer playerObject;
 
-    [SerializeField] protected GenericDictionary<string, PlayerFeat> feats = new GenericDictionary<string, PlayerFeat>();
-    public GenericDictionary<string, PlayerFeat> Feats { get => feats; }
+    [SerializeField] protected GenericDictionary<string, PlayerAbility> abilities = new GenericDictionary<string, PlayerAbility>();
+    public GenericDictionary<string, PlayerAbility> Abilities { get => abilities; }
+
+    [SerializeField] protected OnCharacterEmitterController onCharacterEmitter;
 
     // Start is called before the first frame update
     void Start()
     {
         joystick = FindObjectOfType<Joystick>();
         playerObject = gameObject.GetComponent<SpawnablePlayer>();
+        onCharacterEmitter = GetComponentInChildren<OnCharacterEmitterController>();
     }
 
     // Update is called once per frame
@@ -30,76 +33,52 @@ public class PlayerController : MonoBehaviour
         float x = Joystick.Horizontal;
         float z = Joystick.Vertical;
         Vector3 movementDirection = new Vector3(x, 0.0f, z);
+        Vector3 lookAtDirection = playerObject.transform.position + movementDirection;
 
+        playerObject.transform.LookAt(lookAtDirection);
         PlayerMover.SimpleMove(playerObject.CharStats.movementSpeedBase * movementDirection);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            AddFeat("IncreaseBaseHealth");
-            RecalculateStats();
+            Attack();
         }
     }
 
-    protected void TakeDamage()
+    public void AddAbility(string key)
     {
-        playerObject.TakeDamage();
-    }
-
-    public void AddFeat(string key)
-    {
-        PlayerFeat feat;
-        if (feats.TryGetValue(key, out feat))
+        PlayerAbility ability;
+        if (abilities.TryGetValue(key, out ability))
         {
-            feats.Remove(key);
-            feat.currentLevel++;
-            RecalculateFeatUpgradeCost(ref feat);
-            feats.Add(key, feat);
+            abilities.Remove(key);
+            ability.currentLevel++;
+            RecalculateFeatUpgradeCost(ref ability);
+            abilities.Add(key, ability);
             RecalculateStats();
             return;
         }
         
-        if (ArenaManager.Manager.AvailablePlayerFeats.TryGetValue(key, out feat)) {
-            feat.currentLevel++;
-            RecalculateFeatUpgradeCost(ref feat);
-            feats.Add(key, feat);
+        if (ArenaResourceManager.Manager.AvailablePlayerAbilities.TryGetValue(key, out ability)) {
+            ability.currentLevel++;
+            RecalculateFeatUpgradeCost(ref ability);
+            abilities.Add(key, ability);
             RecalculateStats();
             return;
         }
     }
-
-    /*public void RemoveFeat(PlayerFeat feat, bool forceRemoval = false)
-    {
-        if (feats.TryGetValue(feat, out int featLevel))
-        {
-            feats.Remove(feat);
-            if (forceRemoval)
-            {
-                return;
-            }
-
-            if (featLevel > 1)
-            {
-                feat.currentLevel--;
-                RecalculateFeatUpgradeCost(ref feat);
-                feats.Add(feat, feat.currentLevel);
-            }
-            
-        }
-    }*/
 
     protected void RecalculateStats()
     {
         playerObject.RecalculateStats();
     }
 
-    protected void RecalculateFeatUpgradeCost(ref PlayerFeat feat)
+    protected void RecalculateFeatUpgradeCost(ref PlayerAbility ability)
     {
-        feat.currentImprovementCost = (feat.improvementCostBase + feat.currentLevel) + ((feat.improvementCostBase + feat.currentLevel) / 100 * feat.currentLevel);
+        ability.currentImprovementCost = (ability.improvementCostBase + ability.currentLevel) + ((ability.improvementCostBase + ability.currentLevel) / 100 * ability.currentLevel);
     }
 
     public int GetFeatCurrentLevel(string key)
     {
-        if (feats.TryGetValue(key, out PlayerFeat feat))
+        if (abilities.TryGetValue(key, out PlayerAbility feat))
         {
             return feat.currentLevel;
         }
@@ -107,8 +86,21 @@ public class PlayerController : MonoBehaviour
         return 0;
     }
 
-    public PlayerFeat GetPlayerFeat(string key)
+    public PlayerAbility GetPlayerAbility(string key)
     {
-        return feats.TryGetValue(key, out PlayerFeat feat) ? feat : ArenaManager.Manager.AvailablePlayerFeats[key];
+        return abilities.TryGetValue(key, out PlayerAbility ability) ? ability : ArenaResourceManager.Manager.AvailablePlayerAbilities[key];
+    }
+
+    public void Attack()
+    {
+        if (playerObject.HitterPrefab != null)
+        {
+            WeaponHitter strike = Instantiate(playerObject.HitterPrefab, onCharacterEmitter.transform.position, onCharacterEmitter.transform.rotation);
+            strike.SetParent(playerObject);
+            if (strike.TryGetComponent(out Rigidbody strikeRb))
+            {
+                strikeRb.AddForce(onCharacterEmitter.transform.forward, ForceMode.Impulse);
+            }
+        }
     }
 }

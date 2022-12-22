@@ -13,10 +13,9 @@ public class SpawnableMonster : SpawnableBase
     {
         Vector3 lookAt = new Vector3(
             ArenaManager.Manager.Player.transform.position.x,
-            0.0f,
+            transform.position.y,
             ArenaManager.Manager.Player.transform.position.z
             );
-        //transform.LookAt(ArenaManager.Manager.Player.transform);
         transform.LookAt(lookAt);
 
         Vector3 dir = (ArenaManager.Manager.Player.transform.position - transform.position).normalized;
@@ -25,74 +24,16 @@ public class SpawnableMonster : SpawnableBase
         Controller.SimpleMove(charStats.movementSpeed * dir);
     }
 
-
-    protected void OnCollisionEnter(Collision collision)
+    protected override void CharacterDeath()
     {
-        if (collision.gameObject.TryGetComponent(out PlayerController Player))
+        if (Random.value < 0.5f && ArenaResourceManager.Manager.AvailableCollectibleStuff.Count > 0)
         {
-            Debug.Log("CollisionEnter");
-            if (!isFighting)
+            CollectibleStuff collectibleStuff = ArenaResourceManager.Manager.GetRandomCollectibleStuff();
+            if (collectibleStuff.dropChance > 0.0f && Random.value < (collectibleStuff.dropChance / 100))
             {
-                isFighting = true;
-                StartCoroutine(TakingDamage());
+                ArenaResourceManager.Manager.SpawnCollectibleStuff(collectibleStuff, transform.position);
             }
         }
-    }
-
-    protected void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out PlayerController Player))
-        {
-            Debug.Log("CollisionExit");
-            if (isFighting)
-            {
-                isFighting = false;
-                StopCoroutine(TakingDamage());
-            }
-        }
-    }
-
-    protected void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent(out PlayerController Player))
-        {
-            //Debug.Log("TriggerEnter");
-            if (!isFighting)
-            {
-                isFighting = true;
-                StartCoroutine(TakingDamage());
-            }
-        }
-    }
-
-    protected void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out PlayerController Player))
-        {
-            //Debug.Log("TriggerExit");
-            if (isFighting)
-            {
-                isFighting = false;
-                StopCoroutine(TakingDamage());
-
-            }
-        }
-    }
-
-
-
-    protected IEnumerator TakingDamage()
-    {
-        while (isFighting)
-        {
-            charStats.health -= 5.0f;
-            if (charStats.health <= 0.0f)
-            {
-                Destroy(gameObject);
-            }
-            
-            healthBar.BarValueChange.Invoke();
-            yield return new WaitForSeconds(1.0f);
-        }
+        Destroy(gameObject);
     }
 }

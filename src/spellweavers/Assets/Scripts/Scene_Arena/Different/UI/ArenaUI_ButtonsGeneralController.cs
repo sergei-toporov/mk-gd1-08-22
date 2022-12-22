@@ -15,7 +15,7 @@ public class ArenaUI_ButtonsGeneralController : MonoBehaviour
         button.onClick.AddListener(OnClickListener);
     }
 
-    protected void OnClickListener()
+    protected virtual void OnClickListener()
     {
         ArenaWorkflowManager.Manager.SwitchState(transitToState);
     }
