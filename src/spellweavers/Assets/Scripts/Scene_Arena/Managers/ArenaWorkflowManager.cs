@@ -47,6 +47,7 @@ public class ArenaWorkflowManager : MonoBehaviour
     {
         arenaUIController = FindObjectOfType<ArenaUIController>();
         SwitchState(ArenaStates.Ingame);
+        UpdateArenaUI();
         ArenaManager.Manager.StartGame();
     }
 
@@ -114,6 +115,10 @@ public class ArenaWorkflowManager : MonoBehaviour
         }
     }
 
+    public void UpdateArenaUI()
+    {
+        arenaUIController.UpdateUI();
+    }
     
 
 }

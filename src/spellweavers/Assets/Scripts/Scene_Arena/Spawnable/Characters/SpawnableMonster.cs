@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnableMonster : SpawnableBase
@@ -34,6 +32,7 @@ public class SpawnableMonster : SpawnableBase
                 ArenaResourceManager.Manager.SpawnCollectibleStuff(collectibleStuff, transform.position);
             }
         }
+        ArenaResourceManager.Manager.SpawnCollectibleResourcesMandatory(transform.position);
         Destroy(gameObject);
     }
 }

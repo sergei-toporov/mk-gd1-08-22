@@ -7,15 +7,5 @@ public class SpawnPointPlayer : SpawnPointBase
     protected override void Awake()
     {
         base.Awake();
-        
-        if (spawnablePrefab == null)
-        {
-            CharacterClassMetadata data = ArenaResourceManager.Manager.PlayerClassesList.GetRandomClass();
-            spawnablePrefab = data.defaultPrefab;
-            spawnablePrefab.AddBaseStats(data);
-        }        
-        
-        Instantiate(spawnablePrefab.BaseStats.defaultPrefab, transform.position, Quaternion.identity);
-        ArenaManager.Manager.SetPlayerObject(this);                
     }
 }

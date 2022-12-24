@@ -13,6 +13,7 @@ public class WeaponHitter : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
+        transform.Rotate(transform.forward);
         StartCoroutine(LifeExpirationCoroutine());
         ttlObject = new WaitForSeconds(ttl);
     }

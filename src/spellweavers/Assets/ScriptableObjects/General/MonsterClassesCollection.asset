@@ -20,7 +20,7 @@ MonoBehaviour:
         defaultPrefab: {fileID: 4242925449829349072, guid: 532cb8e626fbaf745bd20cbb8ac33002, type: 3}
         baseHealth: 10
         baseMana: 20
-        baseMovementSpeed: 4
+        baseMovementSpeed: 1
         baseAttacksPerMinute: 20
         baseAttackRange: 60
         baseDamage: 3
@@ -35,14 +35,14 @@ MonoBehaviour:
         defaultPrefab: {fileID: 3286285211130611615, guid: af352518ce9ac3a4bbfff0541e1a2fcb, type: 3}
         baseHealth: 15
         baseMana: 10
-        baseMovementSpeed: 6
+        baseMovementSpeed: 2
         baseAttacksPerMinute: 40
         baseAttackRange: 30
         baseDamage: 2
         baseDamageRadius: 0
         baseHealthRegeneration: 0.4
         baseManaRegeneration: 0.5
-        weaponHitterPrefab: {fileID: 2850905165338615257, guid: 711afe121f6fd0f42870704762b4a7f6, type: 3}
+        weaponHitterPrefab: {fileID: 1039250564346344275, guid: 711afe121f6fd0f42870704762b4a7f6, type: 3}
         monsterDifficulty: 0
     - Key: AI_Warrior_Easy
       Value:
@@ -50,7 +50,7 @@ MonoBehaviour:
         defaultPrefab: {fileID: 6356326470243513372, guid: 396cb3f10664b0f4ba2285b1eb6364bc, type: 3}
         baseHealth: 20
         baseMana: 5
-        baseMovementSpeed: 5
+        baseMovementSpeed: 1.5
         baseAttacksPerMinute: 30
         baseAttackRange: 1
         baseDamage: 4

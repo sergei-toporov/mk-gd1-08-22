@@ -71,8 +71,9 @@ public class Generator4x4 : ArenaGeneratorBase
     /// <summary>
     /// {@inheritdoc}
     /// </summary>
-    public override void GenerateMonsterSpawnPoints()
+    public override List<SpawnPointMonster> GenerateMonsterSpawnPoints()
     {
+        List<SpawnPointMonster> spList = new List<SpawnPointMonster>();
         SpawnPointMonster point;
         Vector3[] positions =
         {
@@ -88,15 +89,16 @@ public class Generator4x4 : ArenaGeneratorBase
             point.transform.position += new Vector3(0.0f, 1.0f, 0.0f);
             point.transform.parent = arenaRootObject.transform;
             point.gameObject.SetActive(true);
+            spList.Add(point);
         }
 
-
+        return spList;
     }
 
     /// <summary>
     /// {@inheritdoc}
     /// </summary>
-    public override void GeneratePlayerSpawnPoint()
+    public override SpawnPointPlayer GeneratePlayerSpawnPoint()
     {
         SpawnPointPlayer point = Instantiate(ArenaResourceManager.Manager.SpawnpointPlayerPrefab, Vector3.zero, Quaternion.identity);
         point.gameObject.transform.position += new Vector3(
@@ -106,6 +108,7 @@ public class Generator4x4 : ArenaGeneratorBase
             );
         point.transform.parent = arenaRootObject.transform;
         point.gameObject.SetActive(true);
+        return point;
     }
 
     /// <summary>

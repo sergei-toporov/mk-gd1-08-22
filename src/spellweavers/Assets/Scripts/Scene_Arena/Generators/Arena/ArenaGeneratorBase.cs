@@ -24,7 +24,10 @@ public abstract class ArenaGeneratorBase : MonoBehaviour
     /// <param name="rootObject">
     /// Root object for the arena elements.
     /// </param>
-    public abstract void GenerateMonsterSpawnPoints();
+    /// <returns>
+    /// A list with spawnpoints for monsters.
+    /// </returns>
+    public abstract List<SpawnPointMonster> GenerateMonsterSpawnPoints();
 
     /// <summary>
     /// Generates player's spawn point on the arena.
@@ -32,7 +35,10 @@ public abstract class ArenaGeneratorBase : MonoBehaviour
     /// <param name="rootObject">
     /// Root object for the arena elements.
     /// </param>
-    public abstract void GeneratePlayerSpawnPoint();
+    /// <returns>
+    /// A player's spawnpoint instance.
+    /// </returns>
+    public abstract SpawnPointPlayer GeneratePlayerSpawnPoint();
 
     /// <summary>
     /// {@inheritdoc}

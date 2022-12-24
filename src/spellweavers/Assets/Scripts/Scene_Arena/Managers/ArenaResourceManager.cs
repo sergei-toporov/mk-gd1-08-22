@@ -44,6 +44,9 @@ public class ArenaResourceManager : MonoBehaviour
     [SerializeField] protected List<CollectibleStuff> availableCollectibleStuff;
     public List<CollectibleStuff> AvailableCollectibleStuff { get => availableCollectibleStuff; }
 
+    protected float resourcesToSpend = 0.0f;
+    public float ResourcesToSpend { get => resourcesToSpend; }
+
     protected void Awake()
     {
         if (manager != null && manager != this)
@@ -160,5 +163,22 @@ public class ArenaResourceManager : MonoBehaviour
         Transform spawnedUnit = Instantiate(unitData.prefab, spawnPosition, Quaternion.identity);
         CollectibleStuffUnit collectible = spawnedUnit.GetComponent<CollectibleStuffUnit>();
         collectible.SetParameters(unitData);
+    }
+
+    public void SpawnCollectibleResourcesMandatory(Vector3 spawnPosition) {
+        foreach (CollectibleResource res in AvailableCollectibleResources)
+        {
+            if (res.isMandatory)
+            {
+                Transform spawnedRes = Instantiate(res.prefab, spawnPosition, res.prefab.rotation);
+            }
+        }
+    }
+
+
+    public void AddPlayerResources(CollectibleResourceUnit stuffUnit)
+    {
+        resourcesToSpend += stuffUnit.UnitData.resourceAmountBase;
+        ArenaWorkflowManager.Manager.UpdateArenaUI();
     }
 }

@@ -32,6 +32,14 @@ public class ArenaManager : MonoBehaviour
     protected float collectedResources = 0;
     public float CollectedResources { get => collectedResources; }
 
+    protected int waveNumber = 0;
+
+    protected int spawnedMonsters = 0;
+
+    protected List<SpawnPointMonster> spawnPointMonsters;
+
+    protected SpawnPointPlayer spawnPointPlayer;
+
     protected void Awake()
     {
         if (manager != null && manager != this)
@@ -91,9 +99,10 @@ public class ArenaManager : MonoBehaviour
             activeGenerator = Instantiate(arenaGenerators[Random.Range(0, arenaGenerators.Count)]);
             arenaSizes = new Vector2Int (GetLimitValue(), GetLimitValue());
             activeGenerator.GenerateArena(arenaObject);
-            activeGenerator.GeneratePlayerSpawnPoint();
-            activeGenerator.GenerateMonsterSpawnPoints();
+            spawnPointPlayer = activeGenerator.GeneratePlayerSpawnPoint();
+            spawnPointMonsters = activeGenerator.GenerateMonsterSpawnPoints();
             StaticBatchingUtility.Combine(arenaObject.GetComponentInChildren<ArenaConstructionObject>().gameObject);
+            SetPlayerObject();
             
             hasGeneratedArena = true;
         }
@@ -137,8 +146,11 @@ public class ArenaManager : MonoBehaviour
         }
     }
     
-    public void SetPlayerObject(SpawnPointPlayer spawnPoint)
+    protected void SetPlayerObject()
     {
+        SpawnableBase playerPrefab = spawnPointPlayer.SpawnablePrefab != null ? spawnPointPlayer.SpawnablePrefab : ArenaResourceManager.Manager.PlayerClassesList.GetRandomClass().defaultPrefab;
+        playerPrefab.AddBaseStats(playerPrefab.BaseStats);
+        Instantiate(playerPrefab, spawnPointPlayer.transform.position, Quaternion.identity);
         player = FindObjectOfType<PlayerController>();
         playerBase = player.GetComponent<SpawnablePlayer>();
     }

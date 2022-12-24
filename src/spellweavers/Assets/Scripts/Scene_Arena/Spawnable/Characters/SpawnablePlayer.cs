@@ -84,6 +84,11 @@ public class SpawnablePlayer : SpawnableBase
         UpdateBars();
     }
 
+    public void ResourcePickup(CollectibleResourceUnit stuffUnit)
+    {
+        ArenaResourceManager.Manager.AddPlayerResources(stuffUnit);
+    }
+
     protected void ModifyStats(CollectibleStuffUnit stuffUnit)
     {
         switch (stuffUnit.UnitData.affectedStat)

@@ -66,6 +66,21 @@ public class ArenaUIController : MonoBehaviour
         }
     }
 
+    public void UpdateUI()
+    {
+        switch (ArenaWorkflowManager.Manager.ArenaState)
+        {
+            case ArenaStates.Ingame:
+                IngameScreen_PlayerResourcesValue resValue = ingameUI.GetComponentInChildren<IngameScreen_PlayerResourcesValue>();
+                if (resValue != null)
+                {
+                    resValue.UpdateText();
+                }
+
+                break;
+        }
+    }
+
     protected void DisableUI()
     {
         ingameUI.gameObject.SetActive(false);

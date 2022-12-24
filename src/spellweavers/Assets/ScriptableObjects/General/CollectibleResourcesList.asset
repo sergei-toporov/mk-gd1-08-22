@@ -20,6 +20,6 @@ MonoBehaviour:
         isMandatory: 1
         resourceAmountBase: 2
         dropChance: 0
-        prefab: {fileID: 0}
+        prefab: {fileID: 2623916948337930994, guid: 5672225b0c6c87747ab21e2d37f5c3cb, type: 3}
         image: {fileID: 0}
     keyCollision: 0

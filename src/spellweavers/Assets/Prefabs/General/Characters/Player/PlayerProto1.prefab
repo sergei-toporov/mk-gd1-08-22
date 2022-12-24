@@ -358,7 +358,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -464,6 +464,7 @@ MonoBehaviour:
     baseHealthRegeneration: 0.5
     baseManaRegeneration: 2
     weaponHitterPrefab: {fileID: 5764970848307934579, guid: 56bd59144072b14418fc1f23b46e955d, type: 3}
+    monsterDifficulty: 0
 --- !u!114 &5639009072531480941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,9 +477,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d155a0fde1577374a92313a0ff155407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feats:
+  abilities:
     list: []
     keyCollision: 0
+  onCharacterEmitter: {fileID: 0}
 --- !u!95 &495419648
 Animator:
   serializedVersion: 5
