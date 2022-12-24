@@ -33,6 +33,7 @@ public class SpawnableMonster : SpawnableBase
             }
         }
         ArenaResourceManager.Manager.SpawnCollectibleResourcesMandatory(transform.position);
+        ArenaManager.Manager.DecreaseSpawnedAmount();
         Destroy(gameObject);
     }
 }

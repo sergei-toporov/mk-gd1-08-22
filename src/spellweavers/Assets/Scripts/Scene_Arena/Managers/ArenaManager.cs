@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -32,13 +34,30 @@ public class ArenaManager : MonoBehaviour
     protected float collectedResources = 0;
     public float CollectedResources { get => collectedResources; }
 
-    protected int waveNumber = 0;
+    [SerializeField] protected int waveNumber = 0;
 
-    protected int spawnedMonsters = 0;
+    [SerializeField] protected int spawnedMonsters = 0;
+
+    [SerializeField] protected int totalToSpawn = 0;
 
     protected List<SpawnPointMonster> spawnPointMonsters;
 
     protected SpawnPointPlayer spawnPointPlayer;
+
+    [Serializable]
+    public struct WaveConfig
+    {
+        public int lightMobsAmount;
+        public int midMobsAmount;
+        public int hardMobsAmount;
+        public int bossesAmount;
+        [HideInInspector] public int spawnedLightMobsAmount;
+        [HideInInspector] public int spawnedMidMobsAmount;
+        [HideInInspector] public int spawnedHardMobsAmount;
+        [HideInInspector] public int spawnedBossesAmount;
+    }
+
+    [SerializeField] protected WaveConfig waveConfig;
 
     protected void Awake()
     {
@@ -66,6 +85,12 @@ public class ArenaManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             GenerateArena();
+        }
+
+        if (spawnedMonsters == 0.0f)
+        {
+            ConfigureWave();
+            StartCoroutine(MonsterSpawnCoroutine());
         }
     }
 
@@ -96,14 +121,17 @@ public class ArenaManager : MonoBehaviour
         if (!hasGeneratedArena)
         {
             CreateRootArenaObject();
-            activeGenerator = Instantiate(arenaGenerators[Random.Range(0, arenaGenerators.Count)]);
+            activeGenerator = Instantiate(arenaGenerators[UnityEngine.Random.Range(0, arenaGenerators.Count)]);
             arenaSizes = new Vector2Int (GetLimitValue(), GetLimitValue());
             activeGenerator.GenerateArena(arenaObject);
             spawnPointPlayer = activeGenerator.GeneratePlayerSpawnPoint();
             spawnPointMonsters = activeGenerator.GenerateMonsterSpawnPoints();
             StaticBatchingUtility.Combine(arenaObject.GetComponentInChildren<ArenaConstructionObject>().gameObject);
             SetPlayerObject();
-            
+
+            ConfigureWave();
+            StartCoroutine(MonsterSpawnCoroutine());
+
             hasGeneratedArena = true;
         }
         else
@@ -119,7 +147,7 @@ public class ArenaManager : MonoBehaviour
 
     protected int GetLimitValue()
     {
-        return Random.Range(arenaSizeLimits.x, arenaSizeLimits.y + 1);
+        return UnityEngine.Random.Range(arenaSizeLimits.x, arenaSizeLimits.y + 1);
     }
 
     protected void CreateRootArenaObject()
@@ -154,4 +182,100 @@ public class ArenaManager : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         playerBase = player.GetComponent<SpawnablePlayer>();
     }
+
+    protected void ConfigureWave()
+    {
+        if (waveNumber > 0)
+        {
+            waveConfig.lightMobsAmount++;
+
+            if (waveNumber % 4 == 0)
+            {
+                waveConfig.midMobsAmount++;
+            }
+
+            if (waveNumber % 8 == 0)
+            {
+                waveConfig.hardMobsAmount++;
+            }
+
+            if (waveNumber % 20 == 0)
+            {
+                waveConfig.bossesAmount++;
+            }
+        }
+
+        waveConfig.spawnedLightMobsAmount = 0;
+        waveConfig.spawnedMidMobsAmount = 0;
+        waveConfig.spawnedHardMobsAmount = 0;
+        waveConfig.spawnedBossesAmount = 0;
+
+        spawnedMonsters = 0;
+        totalToSpawn = waveConfig.lightMobsAmount + waveConfig.midMobsAmount + waveConfig.hardMobsAmount + waveConfig.bossesAmount;
+        waveNumber++;
+    }
+
+    protected IEnumerator MonsterSpawnCoroutine()
+    {
+        while (spawnedMonsters < totalToSpawn)
+        {
+            if (waveConfig.spawnedLightMobsAmount < waveConfig.lightMobsAmount)
+            {
+                SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Easy);
+                waveConfig.spawnedLightMobsAmount++;
+                spawnedMonsters++;
+            }
+
+            if (waveConfig.spawnedMidMobsAmount < waveConfig.midMobsAmount)
+            {
+                if ((waveConfig.spawnedLightMobsAmount == waveConfig.lightMobsAmount) || waveConfig.spawnedLightMobsAmount % 3 == 0)
+                {
+                    SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Medium);
+                    waveConfig.spawnedMidMobsAmount++;
+                    spawnedMonsters++;
+                }
+            }
+
+            if (waveConfig.spawnedHardMobsAmount < waveConfig.hardMobsAmount)
+            {
+                if ((waveConfig.spawnedLightMobsAmount == waveConfig.lightMobsAmount) || waveConfig.spawnedLightMobsAmount % 6 == 0)
+                {
+                    SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Hard);
+                    waveConfig.spawnedHardMobsAmount++;
+                    spawnedMonsters++;
+                }
+
+
+                if (waveConfig.spawnedBossesAmount < waveConfig.bossesAmount)
+                {
+                    if ((waveConfig.spawnedLightMobsAmount == waveConfig.lightMobsAmount) || waveConfig.spawnedLightMobsAmount % 10 == 0)
+                    {
+                        SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Boss);
+                        waveConfig.spawnedBossesAmount++;
+                        spawnedMonsters++;
+                    }
+                }
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    protected SpawnPointMonster GetRandomMonsterSpawnpoint()
+    {
+        return spawnPointMonsters[UnityEngine.Random.Range(0, spawnPointMonsters.Count)];
+    }
+
+    protected void SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels diffLevel)
+    {
+        SpawnPointMonster point = GetRandomMonsterSpawnpoint();
+        CharacterClassMetadata metadata = ArenaResourceManager.Manager.GetRandomMonsterData(MonsterDifficultyLevels.Easy);
+        ArenaResourceManager.Manager.SpawnMonster(metadata, point.transform.position);
+    }
+
+    public void DecreaseSpawnedAmount()
+    {
+        spawnedMonsters--;
+    }
+
+
 }

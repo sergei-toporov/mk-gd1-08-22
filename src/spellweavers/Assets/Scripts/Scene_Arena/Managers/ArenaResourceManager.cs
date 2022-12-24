@@ -170,15 +170,36 @@ public class ArenaResourceManager : MonoBehaviour
         {
             if (res.isMandatory)
             {
-                Transform spawnedRes = Instantiate(res.prefab, spawnPosition, res.prefab.rotation);
+                Instantiate(res.prefab, spawnPosition, res.prefab.rotation);
             }
         }
     }
-
 
     public void AddPlayerResources(CollectibleResourceUnit stuffUnit)
     {
         resourcesToSpend += stuffUnit.UnitData.resourceAmountBase;
         ArenaWorkflowManager.Manager.UpdateArenaUI();
+    }
+
+    public void SpawnMonster(CharacterClassMetadata metadata, Vector3 spawnPosition)
+    {        
+        SpawnableBase spawnablePrefab = metadata.defaultPrefab;
+        spawnablePrefab.AddBaseStats(metadata);
+        Instantiate(spawnablePrefab, spawnPosition, Quaternion.identity);
+    }
+
+    public CharacterClassMetadata GetRandomMonsterData(MonsterDifficultyLevels diffLevel)
+    {
+        List<CharacterClassMetadata> suitableClasses = new List<CharacterClassMetadata>();
+
+        foreach (CharacterClassMetadata mob in monsterClassesList.Collection.Values)
+        {
+            if (mob.monsterDifficulty == diffLevel)
+            {
+                suitableClasses.Add(mob);
+            }
+        }
+
+        return suitableClasses[Random.Range(0, suitableClasses.Count)];
     }
 }

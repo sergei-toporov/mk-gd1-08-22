@@ -46,7 +46,7 @@ MonoBehaviour:
         monsterDifficulty: 0
     - Key: AI_Warrior_Easy
       Value:
-        defaultName: Ranger Weak
+        defaultName: Warrior Easy
         defaultPrefab: {fileID: 6356326470243513372, guid: 396cb3f10664b0f4ba2285b1eb6364bc, type: 3}
         baseHealth: 20
         baseMana: 5
@@ -59,4 +59,49 @@ MonoBehaviour:
         baseManaRegeneration: 0.2
         weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
         monsterDifficulty: 0
+    - Key: AI_Warrior_Medium
+      Value:
+        defaultName: Warrior Medium
+        defaultPrefab: {fileID: 6356326470243513372, guid: 396cb3f10664b0f4ba2285b1eb6364bc, type: 3}
+        baseHealth: 30
+        baseMana: 10
+        baseMovementSpeed: 2
+        baseAttacksPerMinute: 40
+        baseAttackRange: 1
+        baseDamage: 6
+        baseDamageRadius: 0
+        baseHealthRegeneration: 0.8
+        baseManaRegeneration: 0.4
+        weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
+        monsterDifficulty: 1
+    - Key: AI_Warrior_Hard
+      Value:
+        defaultName: Warrior Hard
+        defaultPrefab: {fileID: 6356326470243513372, guid: 396cb3f10664b0f4ba2285b1eb6364bc, type: 3}
+        baseHealth: 40
+        baseMana: 15
+        baseMovementSpeed: 2.5
+        baseAttacksPerMinute: 50
+        baseAttackRange: 1
+        baseDamage: 7
+        baseDamageRadius: 0
+        baseHealthRegeneration: 1
+        baseManaRegeneration: 0.6
+        weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
+        monsterDifficulty: 2
+    - Key: AI_Warrior_Boss
+      Value:
+        defaultName: Warrior Boss
+        defaultPrefab: {fileID: 6356326470243513372, guid: 396cb3f10664b0f4ba2285b1eb6364bc, type: 3}
+        baseHealth: 100
+        baseMana: 50
+        baseMovementSpeed: 2
+        baseAttacksPerMinute: 50
+        baseAttackRange: 1
+        baseDamage: 15
+        baseDamageRadius: 0
+        baseHealthRegeneration: 1.5
+        baseManaRegeneration: 1
+        weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
+        monsterDifficulty: 3
     keyCollision: 0

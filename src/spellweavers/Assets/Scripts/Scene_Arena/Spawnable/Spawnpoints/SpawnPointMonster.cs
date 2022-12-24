@@ -18,7 +18,7 @@ public class SpawnPointMonster : SpawnPointBase
             spawnablePrefab = data.defaultPrefab;
             spawnablePrefab.AddBaseStats(data);
         }
-        StartCoroutine(SpawnCoroutine());
+        //StartCoroutine(SpawnCoroutine());
     }
 
     protected IEnumerator SpawnCoroutine()
