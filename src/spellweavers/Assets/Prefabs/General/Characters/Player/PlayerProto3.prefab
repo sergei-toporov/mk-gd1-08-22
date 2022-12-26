@@ -369,13 +369,13 @@ GameObject:
   - component: {fileID: 8834121790009843085}
   - component: {fileID: 653115315803417663}
   - component: {fileID: 7613479315844564180}
-  - component: {fileID: 472788376425238527}
   - component: {fileID: 6007638581527396462}
   - component: {fileID: 4422294824175597717}
   - component: {fileID: 9070152293999701846}
   - component: {fileID: 5865771911555131325}
   - component: {fileID: 33118709938699716}
-  m_Layer: 0
+  - component: {fileID: -591775049896951109}
+  m_Layer: 9
   m_Name: PlayerProto3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8210221361737262937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 866, z: -637}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -451,27 +451,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &472788376425238527
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8210221361737262937}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &6007638581527396462
 CharacterController:
   m_ObjectHideFlags: 0
@@ -539,24 +518,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 5001383745592562909, guid: 3be35e56ce07b4d43bbdb205ba357225, type: 3}
   charStats:
-    healthBase: 0
-    health: 0
-    manaBase: 0
-    mana: 0
-    movementSpeedBase: 0
-    movementSpeed: 0
-    attacksPerMinuteBase: 0
-    attacksPerMinute: 0
-    attackRangeBase: 0
-    attackRange: 0
-    damageBase: 0
-    damage: 0
-    damageRadiusBase: 0
-    damageRadius: 0
-    healthRegenBase: 0
-    healthRegen: 0
-    manaRegenBase: 0
-    manaRegen: 0
+    healthBase: 175
+    health: 175
+    manaBase: 75
+    mana: 75
+    movementSpeedBase: 4
+    movementSpeed: 4
+    attacksPerMinuteBase: 40
+    attacksPerMinute: 40
+    attackRangeBase: 1
+    attackRange: 1
+    damageBase: 10
+    damage: 10
+    damageRadiusBase: 0.01
+    damageRadius: 0.01
+    healthRegenBase: 1.5
+    healthRegen: 1.5
+    manaRegenBase: 0.6
+    manaRegen: 0.6
   baseStats:
     defaultName: Warrior
     defaultPrefab: {fileID: 9070152293999701846}
@@ -564,13 +543,14 @@ MonoBehaviour:
     baseMana: 75
     baseMovementSpeed: 4
     baseAttacksPerMinute: 40
-    baseAttackRange: 0.4
+    baseAttackRange: 1
     baseDamage: 10
     baseDamageRadius: 0.01
     baseHealthRegeneration: 1.5
     baseManaRegeneration: 0.6
     weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
     monsterDifficulty: 0
+  isReady: 0
 --- !u!114 &5865771911555131325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,6 +567,8 @@ MonoBehaviour:
     list: []
     keyCollision: 0
   onCharacterEmitter: {fileID: 0}
+  canAttack: 0
+  isAttacking: 0
 --- !u!95 &33118709938699716
 Animator:
   serializedVersion: 5
@@ -607,6 +589,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!65 &-591775049896951109
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8210221361737262937}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9185037194801392516
 GameObject:
   m_ObjectHideFlags: 0

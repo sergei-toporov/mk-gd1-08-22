@@ -16,6 +16,9 @@ public class ArenaUIController : MonoBehaviour
     [SerializeField] protected RectTransform pauseScreenUI;
     public RectTransform PauseScreenUI { get => pauseScreenUI; }
 
+    [SerializeField] protected RectTransform deathScreenUI;
+    public RectTransform DeathScreenUI { get => deathScreenUI; }
+
     protected void Awake()
     {
         if (!InitialCheck())
@@ -44,6 +47,12 @@ public class ArenaUIController : MonoBehaviour
             return false;
         }
 
+        if (deathScreenUI == null)
+        {
+            Debug.LogError($"The 'Death Screen UI' element is not set.");
+            return false;
+        }
+
         return true;
     }
 
@@ -62,6 +71,10 @@ public class ArenaUIController : MonoBehaviour
             case ArenaStates.PauseScreen:
                 DisableUI();
                 EnableUIScreen(pauseScreenUI);
+                break;
+            case ArenaStates.DeathScreen:
+                DisableUI();
+                EnableUIScreen(deathScreenUI);
                 break;
         }
     }

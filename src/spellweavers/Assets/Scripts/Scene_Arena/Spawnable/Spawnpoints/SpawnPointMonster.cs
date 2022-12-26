@@ -4,30 +4,11 @@ using UnityEngine;
 
 public class SpawnPointMonster : SpawnPointBase
 {
-
-    protected int maxSpawns = 5;
-    protected int currentSpawns = 0;
-    protected float spawnDelay = 4.0f;
-
-    protected override void Awake()
+    public override void SetClass(string key)
     {
-        base.Awake();
-        if (spawnablePrefab == null)
+        if (ArenaResourceManager.Manager.MonsterClassesList.Collection.TryGetValue(key, out CharacterClassMetadata charClass))
         {
-            CharacterClassMetadata data = ArenaResourceManager.Manager.MonsterClassesList.GetRandomClass();
-            spawnablePrefab = data.defaultPrefab;
-            spawnablePrefab.AddBaseStats(data);
-        }
-        //StartCoroutine(SpawnCoroutine());
-    }
-
-    protected IEnumerator SpawnCoroutine()
-    {
-        while (currentSpawns < maxSpawns)
-        {
-            yield return new WaitForSeconds(spawnDelay);
-            Instantiate(spawnablePrefab, transform.position, Quaternion.identity);
-            currentSpawns++;
+            spawnableClass = charClass;
         }
     }
 }

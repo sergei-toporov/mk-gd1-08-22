@@ -64,8 +64,6 @@ public class ArenaResourceManager : MonoBehaviour
             Application.Quit();
         }
 
-        spawnpointPlayerPrefab.gameObject.SetActive(false);
-        spawnpointMonsterPrefab.gameObject.SetActive(false);
         SetAvailableResources();
 
         isReady = true;
@@ -170,7 +168,8 @@ public class ArenaResourceManager : MonoBehaviour
         {
             if (res.isMandatory)
             {
-                Instantiate(res.prefab, spawnPosition, res.prefab.rotation);
+                Transform spawnedResource = Instantiate(res.prefab, spawnPosition, res.prefab.rotation);
+                spawnedResource.GetComponent<CollectibleResourceUnit>().SetParameters(res);
             }
         }
     }
@@ -181,25 +180,17 @@ public class ArenaResourceManager : MonoBehaviour
         ArenaWorkflowManager.Manager.UpdateArenaUI();
     }
 
-    public void SpawnMonster(CharacterClassMetadata metadata, Vector3 spawnPosition)
-    {        
-        SpawnableBase spawnablePrefab = metadata.defaultPrefab;
-        spawnablePrefab.AddBaseStats(metadata);
-        Instantiate(spawnablePrefab, spawnPosition, Quaternion.identity);
-    }
-
-    public CharacterClassMetadata GetRandomMonsterData(MonsterDifficultyLevels diffLevel)
+    public bool ChargeForAbilityUpgrade(PlayerAbility ability)
     {
-        List<CharacterClassMetadata> suitableClasses = new List<CharacterClassMetadata>();
-
-        foreach (CharacterClassMetadata mob in monsterClassesList.Collection.Values)
+        if (resourcesToSpend >= ability.currentImprovementCost)
         {
-            if (mob.monsterDifficulty == diffLevel)
-            {
-                suitableClasses.Add(mob);
-            }
+            resourcesToSpend -= ability.currentImprovementCost;
+            ArenaWorkflowManager.Manager.UpdateArenaUI();
+            return true;
         }
-
-        return suitableClasses[Random.Range(0, suitableClasses.Count)];
+        else
+        {
+            return false;
+        }
     }
 }

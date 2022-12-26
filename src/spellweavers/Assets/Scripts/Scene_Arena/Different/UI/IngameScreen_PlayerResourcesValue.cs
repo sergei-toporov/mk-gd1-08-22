@@ -17,6 +17,7 @@ public class IngameScreen_PlayerResourcesValue : MonoBehaviour
             UpdateText();
         }
 
+
         text.text = $"{ArenaResourceManager.Manager.ResourcesToSpend}";
     }
 

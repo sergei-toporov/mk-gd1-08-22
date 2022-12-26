@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -4786518743410494844}
   - component: {fileID: -2767760361154897179}
   - component: {fileID: 2412814007780836461}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ProtoMonster3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,8 +36,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5927587151926134306}
+  - {fileID: 5439789413238725923}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4122013781553579753
 MeshFilter:
@@ -155,6 +156,8 @@ MonoBehaviour:
     baseHealthRegeneration: 0
     baseManaRegeneration: 0
     weaponHitterPrefab: {fileID: 0}
+    monsterDifficulty: 0
+  isReady: 0
 --- !u!143 &-4786518743410494844
 CharacterController:
   m_ObjectHideFlags: 0
@@ -193,6 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649debbe80b76924692a59f5872ac628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canAttack: 0
+  isAttacking: 0
 --- !u!54 &2412814007780836461
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -220,6 +225,72 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 1
+--- !u!1 &8805251919471863519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5439789413238725923}
+  - component: {fileID: 222114840942167654}
+  - component: {fileID: 6551359516441295870}
+  m_Layer: 0
+  m_Name: Emitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5439789413238725923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805251919471863519}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.1949997, z: 0.61800003}
+  m_LocalScale: {x: 1, y: 0.6666667, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6524452544081239547}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &222114840942167654
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805251919471863519}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6551359516441295870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805251919471863519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e30e51d3e9af146a65dbaddcd5d78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8990218748519644065
 GameObject:
   m_ObjectHideFlags: 0

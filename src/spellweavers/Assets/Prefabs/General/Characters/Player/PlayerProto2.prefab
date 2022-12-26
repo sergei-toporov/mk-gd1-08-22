@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 4707346901950038429}
   - component: {fileID: 4028236975637396384}
   - component: {fileID: 910071942920804860}
-  - component: {fileID: 3733708652641782045}
   - component: {fileID: 5398871095695004656}
   - component: {fileID: 180926841360606636}
   - component: {fileID: 2845310602833221685}
   - component: {fileID: 8565199168218699087}
-  m_Layer: 0
+  - component: {fileID: -7822258250982023007}
+  m_Layer: 9
   m_Name: PlayerProto2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176782452181211076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 866, z: -637}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -92,29 +92,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3733708652641782045
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176782452181211076}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &5398871095695004656
 CharacterController:
   m_ObjectHideFlags: 0
@@ -182,24 +159,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 5001383745592562909, guid: 3be35e56ce07b4d43bbdb205ba357225, type: 3}
   charStats:
-    healthBase: 0
-    health: 0
-    manaBase: 0
-    mana: 0
-    movementSpeedBase: 0
-    movementSpeed: 0
-    attacksPerMinuteBase: 0
-    attacksPerMinute: 0
-    attackRangeBase: 0
-    attackRange: 0
-    damageBase: 0
-    damage: 0
+    healthBase: 125
+    health: 125
+    manaBase: 100
+    mana: 100
+    movementSpeedBase: 6
+    movementSpeed: 6
+    attacksPerMinuteBase: 80
+    attacksPerMinute: 80
+    attackRangeBase: 40
+    attackRange: 40
+    damageBase: 3
+    damage: 3
     damageRadiusBase: 0
     damageRadius: 0
-    healthRegenBase: 0
-    healthRegen: 0
-    manaRegenBase: 0
-    manaRegen: 0
+    healthRegenBase: 1
+    healthRegen: 1
+    manaRegenBase: 0.8
+    manaRegen: 0.8
   baseStats:
     defaultName: Ranger
     defaultPrefab: {fileID: 2845310602833221685}
@@ -212,8 +189,9 @@ MonoBehaviour:
     baseDamageRadius: 0
     baseHealthRegeneration: 1
     baseManaRegeneration: 0.8
-    weaponHitterPrefab: {fileID: 2850905165338615257, guid: 711afe121f6fd0f42870704762b4a7f6, type: 3}
+    weaponHitterPrefab: {fileID: 1039250564346344275, guid: 711afe121f6fd0f42870704762b4a7f6, type: 3}
     monsterDifficulty: 0
+  isReady: 0
 --- !u!114 &8565199168218699087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +208,29 @@ MonoBehaviour:
     list: []
     keyCollision: 0
   onCharacterEmitter: {fileID: 0}
+  canAttack: 0
+  isAttacking: 0
+--- !u!65 &-7822258250982023007
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176782452181211076}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &986675878201006508
 GameObject:
   m_ObjectHideFlags: 0

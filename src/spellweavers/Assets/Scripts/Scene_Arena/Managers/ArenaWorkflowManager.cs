@@ -11,7 +11,9 @@ public enum ArenaStates
     PauseScreen,
     FeatsUpgradeScreen,
     ReturningToStartScreen,
-    QuittingGame
+    QuittingGame,
+    RestartGame,
+    DeathScreen
 }
 public class ArenaWorkflowManager : MonoBehaviour
 {
@@ -68,10 +70,12 @@ public class ArenaWorkflowManager : MonoBehaviour
             case ArenaStates.Ingame:
                 arenaUIController.SwitchUI();
                 PauseDisable();
+                UpdateArenaUI();
                 break;
 
             case ArenaStates.PauseScreen:
             case ArenaStates.FeatsUpgradeScreen:
+            case ArenaStates.DeathScreen:
                 arenaUIController.SwitchUI();
                 PauseEnable();
                 break;
@@ -82,7 +86,11 @@ public class ArenaWorkflowManager : MonoBehaviour
 
             case ArenaStates.QuittingGame:
                 Application.Quit();
-                break;                
+                break;
+
+            case ArenaStates.RestartGame:
+                SceneManager.LoadScene(ArenaResourceManager.Manager.SceneList.GetSceneNameByKey("ArenaScene"));
+                break;
         }
     }
 

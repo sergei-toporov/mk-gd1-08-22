@@ -71,7 +71,7 @@ public class SpawnablePlayer : SpawnableBase
 
     protected override void CharacterDeath()
     {
-        Destroy(gameObject);
+        ArenaWorkflowManager.Manager.SwitchState(ArenaStates.DeathScreen);
     }
 
     public void StuffPickup(CollectibleStuffUnit stuffUnit)

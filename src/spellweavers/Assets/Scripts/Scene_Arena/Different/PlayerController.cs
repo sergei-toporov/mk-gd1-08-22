@@ -1,6 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -22,8 +21,8 @@ public class PlayerController : MonoBehaviour
     protected float attackDelayTime;
     protected WaitForSeconds attackDelayObject;
 
-    protected bool canAttack = false;
-    protected bool isAttacking = false;
+    [SerializeField] protected bool canAttack = false;
+    [SerializeField] protected bool isAttacking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -58,44 +57,37 @@ public class PlayerController : MonoBehaviour
 
     public void AddAbility(string key)
     {
-        PlayerAbility ability;
-        if (abilities.TryGetValue(key, out ability))
+        PlayerAbility ability = abilities.ContainsKey(key) ? abilities[key] : ArenaResourceManager.Manager.AvailablePlayerAbilities[key];
+        if (ArenaResourceManager.Manager.ChargeForAbilityUpgrade(ability))
         {
-            abilities.Remove(key);
-            ability.currentLevel++;
-            RecalculateFeatUpgradeCost(ref ability);
-            abilities.Add(key, ability);
-            RecalculateStats();
-            return;
-        }
-        
-        if (ArenaResourceManager.Manager.AvailablePlayerAbilities.TryGetValue(key, out ability)) {
-            ability.currentLevel++;
-            RecalculateFeatUpgradeCost(ref ability);
-            abilities.Add(key, ability);
-            RecalculateStats();
-            return;
+            try
+            {
+                ability.currentLevel++;
+                RecalculateAbilityUpgradeCost(ref ability);
+                abilities[key] = ability;
+                RecalculateStats();
+
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Something went wrong with adding/upgrading ability '{key}' update: {e}");
+            }
         }
     }
-
+    
+    protected bool CheckAbilityAffordability(PlayerAbility ability)
+    {
+        return ability.currentImprovementCost <= ArenaResourceManager.Manager.ResourcesToSpend;
+    }
+    
     protected void RecalculateStats()
     {
         playerObject.RecalculateStats();
     }
 
-    protected void RecalculateFeatUpgradeCost(ref PlayerAbility ability)
+    protected void RecalculateAbilityUpgradeCost(ref PlayerAbility ability)
     {
         ability.currentImprovementCost = (ability.improvementCostBase + ability.currentLevel) + ((ability.improvementCostBase + ability.currentLevel) / 100 * ability.currentLevel);
-    }
-
-    public int GetFeatCurrentLevel(string key)
-    {
-        if (abilities.TryGetValue(key, out PlayerAbility feat))
-        {
-            return feat.currentLevel;
-        }
-
-        return 0;
     }
 
     public PlayerAbility GetPlayerAbility(string key)

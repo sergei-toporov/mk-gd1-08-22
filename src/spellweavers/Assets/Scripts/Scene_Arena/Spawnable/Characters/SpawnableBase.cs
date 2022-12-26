@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -57,6 +58,12 @@ abstract public class SpawnableBase : MonoBehaviour
     protected WeaponHitter hitterPrefab;
     public WeaponHitter HitterPrefab { get => hitterPrefab; }
 
+    [SerializeField] protected bool isReady = false;
+
+    protected bool isDead = false;
+
+    protected WaitForSeconds secondDelayObject = new WaitForSeconds(1.0f);
+
 
     protected virtual void Awake()
     {
@@ -78,20 +85,10 @@ abstract public class SpawnableBase : MonoBehaviour
         {
             spawnableCanvas.gameObject.SetActive(false);
         }
-
-        SetStartStats();
-        className = baseStats.defaultName;
-        hitterPrefab = baseStats.weaponHitterPrefab;
     }
 
     protected bool InitialCheck()
     {
-        if (baseStats.baseHealth == 0)
-        {
-            Debug.LogError($"Wrong base stats asset set on '{gameObject.name}'. Fix it pls!");
-            return false;
-        }
-
         Canvas canvas = GetComponentInChildren<Canvas>();
         if (canvas == null)
         {
@@ -121,25 +118,40 @@ abstract public class SpawnableBase : MonoBehaviour
         charStats.damageBase = baseStats.baseDamage;
         charStats.damageRadius = baseStats.baseDamageRadius;
         charStats.damageRadiusBase = baseStats.baseDamageRadius;
+        hitterPrefab = baseStats.weaponHitterPrefab;
 
+        if (charStats.healthRegen > 0.0f)
+        {
+            StartCoroutine(HealthRegeneration());
+        }
     }
 
-    public void TakeDamage(SpawnableBase foe) {
-        charStats.health -= foe.CharStats.damage;
-        if (charStats.health <= 0)
-        {
-            CharacterDeath();
+    public void TakeDamage(SpawnableBase attacker)
+    {
+        if (!isDead && GetType() != attacker.GetType()) {
+            charStats.health -= attacker.CharStats.damage;
+
+            if (healthBar.gameObject.scene.rootCount != 0)
+            {
+                healthBar.BarValueChange.Invoke();
+            }
         }
 
-        if (healthBar.gameObject.scene.rootCount != 0)
+        if (charStats.health <= 0)
         {
-            healthBar.BarValueChange.Invoke();
+            isDead = true;
+            CharacterDeath();
         }
     }
 
     public void AddBaseStats(CharacterClassMetadata metadata)
     {
-        baseStats = metadata;
+        if (metadata.defaultPrefab != null)
+        {
+            baseStats = metadata;
+            SetStartStats();
+            isReady = true;
+        }        
     }
 
     protected void UpdateBars()
@@ -151,4 +163,19 @@ abstract public class SpawnableBase : MonoBehaviour
     }
 
     abstract protected void CharacterDeath();
+
+    protected IEnumerator HealthRegeneration()
+    {
+        while (true)
+        {
+            if (charStats.health < charStats.healthBase)
+            {
+                charStats.health += charStats.healthRegen;
+                UpdateBars();
+            }
+
+            yield return secondDelayObject;
+        }
+        
+    }
 }

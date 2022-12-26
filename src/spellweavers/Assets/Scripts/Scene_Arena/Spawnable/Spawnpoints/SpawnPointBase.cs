@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class SpawnPointBase : MonoBehaviour
 {
-    [SerializeField] protected SpawnableBase spawnablePrefab;
-    public SpawnableBase SpawnablePrefab { get => spawnablePrefab; }
+    protected CharacterClassMetadata spawnableClass;
 
-    protected virtual void Awake()
+    protected void Awake()
     {
         if (!InitialCheck())
         {
@@ -19,6 +18,20 @@ public class SpawnPointBase : MonoBehaviour
     protected bool InitialCheck()
     {
         return true;
+    }
+
+    public virtual void SetClass(string key)
+    {
+        
+    }
+
+    public void SpawnCharacter()
+    {
+        if (spawnableClass.defaultPrefab != null) {
+            SpawnableBase spawnedCharacter = Instantiate(spawnableClass.defaultPrefab, transform.position, Quaternion.identity);
+            spawnedCharacter.AddBaseStats(spawnableClass);
+        }
+        
     }
 
 }

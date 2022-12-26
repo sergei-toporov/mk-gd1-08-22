@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +26,8 @@ public class AbilitiesUpgrade_AbilityButtonController : MonoBehaviour
         abilityCurrentLevelValue = GetComponentInChildren<AbilityButton_CurrentLevelValue>().GetComponent<TextMeshProUGUI>();
         abilityUpgradeCostValue = GetComponentInChildren<AbilityButton_NextLevelCostValue>().GetComponent<TextMeshProUGUI>();
         button.onClick.AddListener(OnClickListener);
-        charStatsPane = FindObjectOfType<AbilitiesUpgradeScreen_CharacterStatsPaneController>();        
+        charStatsPane = FindObjectOfType<AbilitiesUpgradeScreen_CharacterStatsPaneController>();
+        SetInteractibility();
     }
 
     protected void Update()
@@ -49,6 +51,7 @@ public class AbilitiesUpgrade_AbilityButtonController : MonoBehaviour
     {
         ability = ArenaManager.Manager.Player.GetPlayerAbility(abilityKey);
 
+        SetInteractibility();
         abilityName.text = ability.name;
         abilityCurrentLevelValue.text = $"{ability.currentLevel}";
         abilityUpgradeCostValue.text = $"{ability.currentImprovementCost}";
@@ -59,5 +62,18 @@ public class AbilitiesUpgrade_AbilityButtonController : MonoBehaviour
         ArenaManager.Manager.Player.AddAbility(abilityKey);
         ProcessFeatData();
         charStatsPane.UpdateStats();
-    }   
+    }
+
+    protected void SetInteractibility()
+    {
+        if (ability.currentImprovementCost <= ArenaResourceManager.Manager.ResourcesToSpend)
+
+        {
+            button.interactable = true;
+        }
+        else
+        {
+            button.interactable = false;
+        }
+    }
 }

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SpawnPointPlayer : SpawnPointBase
 {
-    protected override void Awake()
+    public override void SetClass(string key)
     {
-        base.Awake();
+        if (ArenaResourceManager.Manager.PlayerClassesList.Collection.TryGetValue(key, out CharacterClassMetadata charClass))
+        {
+            spawnableClass = charClass;
+        }
     }
 }

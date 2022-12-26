@@ -77,7 +77,7 @@ public class ArenaManager : MonoBehaviour
         }
 
         InitialConfiguration();
-        GenerateArena();
+        //GenerateArena();
     }
 
     protected void Update()
@@ -87,8 +87,9 @@ public class ArenaManager : MonoBehaviour
             GenerateArena();
         }
 
-        if (spawnedMonsters == 0.0f)
+        if (spawnedMonsters <= 0.0f)
         {
+            RemoveSpawnedMonsters();
             ConfigureWave();
             StartCoroutine(MonsterSpawnCoroutine());
         }
@@ -114,6 +115,8 @@ public class ArenaManager : MonoBehaviour
     public void StartGame()
     {
         GenerateArena();
+        ConfigureWave();
+        StartCoroutine(MonsterSpawnCoroutine());
     }
 
     protected void GenerateArena()
@@ -128,9 +131,6 @@ public class ArenaManager : MonoBehaviour
             spawnPointMonsters = activeGenerator.GenerateMonsterSpawnPoints();
             StaticBatchingUtility.Combine(arenaObject.GetComponentInChildren<ArenaConstructionObject>().gameObject);
             SetPlayerObject();
-
-            ConfigureWave();
-            StartCoroutine(MonsterSpawnCoroutine());
 
             hasGeneratedArena = true;
         }
@@ -168,17 +168,27 @@ public class ArenaManager : MonoBehaviour
 
     protected void RemoveSpawnedCharacters()
     {
-        foreach (SpawnableBase spawnedCharacter in FindObjectsOfType<SpawnableBase>())
+        RemoveSpawnedMonsters();
+        RemoveSpawnedPlayer();
+    }
+
+    protected void RemoveSpawnedMonsters()
+    {
+        foreach (SpawnableMonster spawnedCharacter in FindObjectsOfType<SpawnableMonster>())
         {
             Destroy(spawnedCharacter.gameObject);
         }
     }
+
+    protected void RemoveSpawnedPlayer()
+    {
+        Destroy(FindObjectOfType<SpawnablePlayer>().gameObject);
+    }
     
     protected void SetPlayerObject()
     {
-        SpawnableBase playerPrefab = spawnPointPlayer.SpawnablePrefab != null ? spawnPointPlayer.SpawnablePrefab : ArenaResourceManager.Manager.PlayerClassesList.GetRandomClass().defaultPrefab;
-        playerPrefab.AddBaseStats(playerPrefab.BaseStats);
-        Instantiate(playerPrefab, spawnPointPlayer.transform.position, Quaternion.identity);
+        spawnPointPlayer.SetClass(ArenaResourceManager.Manager.PlayerClassesList.GetRandomKey());
+        spawnPointPlayer.SpawnCharacter();
         player = FindObjectOfType<PlayerController>();
         playerBase = player.GetComponent<SpawnablePlayer>();
     }
@@ -221,18 +231,22 @@ public class ArenaManager : MonoBehaviour
         {
             if (waveConfig.spawnedLightMobsAmount < waveConfig.lightMobsAmount)
             {
-                SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Easy);
-                waveConfig.spawnedLightMobsAmount++;
-                spawnedMonsters++;
+                if (SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Easy))
+                {
+                    waveConfig.spawnedLightMobsAmount++;
+                    spawnedMonsters++;
+                }                
             }
 
             if (waveConfig.spawnedMidMobsAmount < waveConfig.midMobsAmount)
             {
                 if ((waveConfig.spawnedLightMobsAmount == waveConfig.lightMobsAmount) || waveConfig.spawnedLightMobsAmount % 3 == 0)
                 {
-                    SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Medium);
-                    waveConfig.spawnedMidMobsAmount++;
-                    spawnedMonsters++;
+                    if (SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Medium))
+                    {
+                        waveConfig.spawnedMidMobsAmount++;
+                        spawnedMonsters++;
+                    }                    
                 }
             }
 
@@ -240,9 +254,11 @@ public class ArenaManager : MonoBehaviour
             {
                 if ((waveConfig.spawnedLightMobsAmount == waveConfig.lightMobsAmount) || waveConfig.spawnedLightMobsAmount % 6 == 0)
                 {
-                    SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Hard);
-                    waveConfig.spawnedHardMobsAmount++;
-                    spawnedMonsters++;
+                    if (SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Hard))
+                    {
+                        waveConfig.spawnedHardMobsAmount++;
+                        spawnedMonsters++;
+                    }                    
                 }
 
 
@@ -250,13 +266,15 @@ public class ArenaManager : MonoBehaviour
                 {
                     if ((waveConfig.spawnedLightMobsAmount == waveConfig.lightMobsAmount) || waveConfig.spawnedLightMobsAmount % 10 == 0)
                     {
-                        SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Boss);
-                        waveConfig.spawnedBossesAmount++;
-                        spawnedMonsters++;
+                        if (SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Boss))
+                        {
+                            waveConfig.spawnedBossesAmount++;
+                            spawnedMonsters++;
+                        }                        
                     }
                 }
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -265,11 +283,18 @@ public class ArenaManager : MonoBehaviour
         return spawnPointMonsters[UnityEngine.Random.Range(0, spawnPointMonsters.Count)];
     }
 
-    protected void SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels diffLevel)
+    protected bool SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels diffLevel)
     {
         SpawnPointMonster point = GetRandomMonsterSpawnpoint();
-        CharacterClassMetadata metadata = ArenaResourceManager.Manager.GetRandomMonsterData(MonsterDifficultyLevels.Easy);
-        ArenaResourceManager.Manager.SpawnMonster(metadata, point.transform.position);
+        string key = ArenaResourceManager.Manager.MonsterClassesList.GetRandomKeyOfDifficulty(diffLevel);
+        if (key != null)
+        {
+            point.SetClass(key);
+            point.SpawnCharacter();
+            return true;
+        }
+
+        return false;        
     }
 
     public void DecreaseSpawnedAmount()

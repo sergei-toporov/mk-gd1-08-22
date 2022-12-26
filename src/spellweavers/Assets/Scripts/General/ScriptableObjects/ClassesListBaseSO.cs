@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 [Serializable]
@@ -18,6 +19,20 @@ public struct CharacterClassMetadata
     public float baseManaRegeneration;
     public WeaponHitter weaponHitterPrefab;
     public MonsterDifficultyLevels monsterDifficulty;
+
+    public override string ToString()
+    {
+        string result = "";
+        
+        result += $"defName: {defaultName} / ";
+        result += $"baseHP: {baseHealth} / ";
+        result += $"baseHPR: {baseHealthRegeneration} / ";
+        result += $"baseMP: {baseMana} / ";
+        result += $"baseMPR: {baseManaRegeneration} / ";
+        result += $"baseDamageRadius: {baseDamageRadius} / ";        
+
+        return result;
+    }
 }
 
 public class ClassesListBaseSO : ScriptableObject
@@ -25,7 +40,7 @@ public class ClassesListBaseSO : ScriptableObject
     [SerializeField] protected GenericDictionary<string, CharacterClassMetadata> collection = new GenericDictionary<string, CharacterClassMetadata>();
     public GenericDictionary<string, CharacterClassMetadata> Collection { get => collection; }
 
-    public CharacterClassMetadata GetRandomClass()
+    public string  GetRandomKey()
     {
         int collectionCount = collection.Count;
         if (collectionCount > 0)
@@ -36,8 +51,48 @@ public class ClassesListBaseSO : ScriptableObject
             {
                 keys[counter] = key;
                 counter++;
-            }        
-            return collection[keys[UnityEngine.Random.Range(0, collectionCount)]];
+            }
+            return keys[UnityEngine.Random.Range(0, collectionCount)];
+        }
+
+        return null;
+    }
+
+    public string GetRandomKeyOfDifficulty(MonsterDifficultyLevels diffLevel)
+    {
+        int collectionCount = collection.Count;
+        if (collectionCount > 0)
+        {
+            List<string> keys = new List<string>();
+            string result;
+            int counter = 0;
+            foreach (string key in collection.Keys)
+            {
+                if (collection[key].monsterDifficulty == diffLevel)
+                {
+                    keys.Add(key);
+                    counter++;
+                }
+            }
+
+            if (keys.Count == 0)
+            {
+                return null;
+            }
+
+            result = keys[UnityEngine.Random.Range(0, keys.Count)];
+            return collection.TryGetValue(result, out CharacterClassMetadata metadata) ? result : null;
+        }
+        return null;
+    }
+
+    public CharacterClassMetadata GetRandomClass()
+    {
+        string key = GetRandomKey();
+
+        if (collection.TryGetValue(key, out CharacterClassMetadata metadata))
+        {
+            return metadata;
         }
 
         throw new KeyNotFoundException($"The collection is empty");
@@ -52,4 +107,5 @@ public class ClassesListBaseSO : ScriptableObject
 
         throw new KeyNotFoundException($"The '{key}' class is not in collection");
     }
+
 }

@@ -19,15 +19,15 @@ MonoBehaviour:
         defaultName: Mage Weak
         defaultPrefab: {fileID: 4242925449829349072, guid: 532cb8e626fbaf745bd20cbb8ac33002, type: 3}
         baseHealth: 10
-        baseMana: 20
+        baseMana: 19
         baseMovementSpeed: 1
-        baseAttacksPerMinute: 20
-        baseAttackRange: 60
+        baseAttacksPerMinute: 15
+        baseAttackRange: 9
         baseDamage: 3
-        baseDamageRadius: 10
+        baseDamageRadius: 0.6
         baseHealthRegeneration: 0.2
         baseManaRegeneration: 1
-        weaponHitterPrefab: {fileID: 5764970848307934579, guid: 56bd59144072b14418fc1f23b46e955d, type: 3}
+        weaponHitterPrefab: {fileID: 5764970848307934579, guid: 830f1db4fae21a044851ab8ade26c0c5, type: 3}
         monsterDifficulty: 0
     - Key: AI_Ranger_Easy
       Value:
@@ -37,12 +37,12 @@ MonoBehaviour:
         baseMana: 10
         baseMovementSpeed: 2
         baseAttacksPerMinute: 40
-        baseAttackRange: 30
+        baseAttackRange: 10
         baseDamage: 2
         baseDamageRadius: 0
         baseHealthRegeneration: 0.4
         baseManaRegeneration: 0.5
-        weaponHitterPrefab: {fileID: 1039250564346344275, guid: 711afe121f6fd0f42870704762b4a7f6, type: 3}
+        weaponHitterPrefab: {fileID: 1039250564346344275, guid: 228e0d968d52f3c4481acddad395de33, type: 3}
         monsterDifficulty: 0
     - Key: AI_Warrior_Easy
       Value:
@@ -52,17 +52,17 @@ MonoBehaviour:
         baseMana: 5
         baseMovementSpeed: 1.5
         baseAttacksPerMinute: 30
-        baseAttackRange: 1
+        baseAttackRange: 1.5
         baseDamage: 4
         baseDamageRadius: 0
         baseHealthRegeneration: 0.6
         baseManaRegeneration: 0.2
-        weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
+        weaponHitterPrefab: {fileID: 343810655503303069, guid: 21856b378c6eb0d41bd843940c54d7b2, type: 3}
         monsterDifficulty: 0
     - Key: AI_Warrior_Medium
       Value:
         defaultName: Warrior Medium
-        defaultPrefab: {fileID: 6356326470243513372, guid: 396cb3f10664b0f4ba2285b1eb6364bc, type: 3}
+        defaultPrefab: {fileID: 7304397230368251354, guid: d6071cb8c63e8dc43931b9d083bfc46a, type: 3}
         baseHealth: 30
         baseMana: 10
         baseMovementSpeed: 2
@@ -72,12 +72,12 @@ MonoBehaviour:
         baseDamageRadius: 0
         baseHealthRegeneration: 0.8
         baseManaRegeneration: 0.4
-        weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
+        weaponHitterPrefab: {fileID: 343810655503303069, guid: 21856b378c6eb0d41bd843940c54d7b2, type: 3}
         monsterDifficulty: 1
     - Key: AI_Warrior_Hard
       Value:
         defaultName: Warrior Hard
-        defaultPrefab: {fileID: 6356326470243513372, guid: 396cb3f10664b0f4ba2285b1eb6364bc, type: 3}
+        defaultPrefab: {fileID: 2135241314580349504, guid: c55050e9ff9884a4481da0e16c0c3c0e, type: 3}
         baseHealth: 40
         baseMana: 15
         baseMovementSpeed: 2.5
@@ -92,7 +92,7 @@ MonoBehaviour:
     - Key: AI_Warrior_Boss
       Value:
         defaultName: Warrior Boss
-        defaultPrefab: {fileID: 6356326470243513372, guid: 396cb3f10664b0f4ba2285b1eb6364bc, type: 3}
+        defaultPrefab: {fileID: 2020272848677296009, guid: 3e5ca6c2b3e879e4382fd9d7116e7f95, type: 3}
         baseHealth: 100
         baseMana: 50
         baseMovementSpeed: 2
@@ -102,6 +102,6 @@ MonoBehaviour:
         baseDamageRadius: 0
         baseHealthRegeneration: 1.5
         baseManaRegeneration: 1
-        weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
+        weaponHitterPrefab: {fileID: 343810655503303069, guid: 21856b378c6eb0d41bd843940c54d7b2, type: 3}
         monsterDifficulty: 3
     keyCollision: 0

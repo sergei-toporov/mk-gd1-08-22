@@ -4,15 +4,56 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    protected SpawnableMonster baseObject;
+    protected float attackDelayTime;
+    protected WaitForSeconds attackDelayObject;
+    protected OnCharacterEmitterController onCharacterEmitter;
+
+    [SerializeField] protected bool canAttack = false;
+    [SerializeField] protected bool isAttacking = false;
+
+    protected void Start()
     {
-        
+        baseObject = GetComponent<SpawnableMonster>();
+        onCharacterEmitter = GetComponentInChildren<OnCharacterEmitterController>();
+        SetAttackDelayParameters();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected void Update()
     {
-        
+        if (!isAttacking && Vector3.Distance(transform.position, ArenaManager.Manager.Player.transform.position) <= baseObject.CharStats.attackRange)
+        {
+            Attack();
+        }
+    }
+
+
+    protected void SetAttackDelayParameters()
+    {
+        attackDelayTime = 60.0f / baseObject.CharStats.attacksPerMinute;
+        Debug.Log($"{name} attack delay: {attackDelayTime} / {baseObject.CharStats.attacksPerMinute}");
+        canAttack = true;
+        attackDelayObject = new WaitForSeconds(attackDelayTime);
+    }
+
+    public void Attack()
+    {
+        isAttacking = true;
+        if (baseObject.HitterPrefab != null)
+        {
+            WeaponHitter strike = Instantiate(baseObject.HitterPrefab, onCharacterEmitter.transform.position, onCharacterEmitter.transform.rotation);
+            strike.SetParent(baseObject);
+            if (strike.TryGetComponent(out Rigidbody strikeRb))
+            {
+                strikeRb.AddForce(onCharacterEmitter.transform.forward, ForceMode.Impulse);
+            }
+        }
+        StartCoroutine(AttackDelay());
+    }
+
+    protected IEnumerator AttackDelay()
+    {
+        yield return attackDelayObject;
+        isAttacking = false;
     }
 }

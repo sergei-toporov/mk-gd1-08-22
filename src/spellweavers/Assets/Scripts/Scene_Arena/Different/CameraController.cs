@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
         }
         
         isTraceable = true;
-    }
+    }   
 
    
 }

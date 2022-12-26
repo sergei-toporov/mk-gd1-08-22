@@ -110,7 +110,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4725955700941853588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 1.462}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5943724929664206621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.54, y: 0.311, z: 0.315}
+  m_LocalPosition: {x: 0.54, y: 0.311, z: 0.718}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -261,13 +261,13 @@ GameObject:
   - component: {fileID: 199885423048619484}
   - component: {fileID: 8127247789288046581}
   - component: {fileID: 6482804080904322177}
-  - component: {fileID: 7561553894360218568}
   - component: {fileID: 6521898272028128521}
   - component: {fileID: 7865947121214051053}
   - component: {fileID: 7430552884334164416}
   - component: {fileID: 5639009072531480941}
   - component: {fileID: 495419648}
-  m_Layer: 0
+  - component: {fileID: 2636022360424520050}
+  m_Layer: 9
   m_Name: PlayerProto1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6706740770271448460}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 866, z: -637}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -291,7 +291,7 @@ Transform:
   - {fileID: 8370513190998564909}
   - {fileID: 7504423617042609696}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8127247789288046581
 MeshFilter:
@@ -343,29 +343,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7561553894360218568
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6706740770271448460}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!143 &6521898272028128521
 CharacterController:
   m_ObjectHideFlags: 0
@@ -452,19 +429,20 @@ MonoBehaviour:
     manaRegenBase: 0
     manaRegen: 0
   baseStats:
-    defaultName: Mage
-    defaultPrefab: {fileID: 7430552884334164416}
-    baseHealth: 80
-    baseMana: 200
-    baseMovementSpeed: 5
-    baseAttacksPerMinute: 20
-    baseAttackRange: 65
-    baseDamage: 5
-    baseDamageRadius: 20
-    baseHealthRegeneration: 0.5
-    baseManaRegeneration: 2
-    weaponHitterPrefab: {fileID: 5764970848307934579, guid: 56bd59144072b14418fc1f23b46e955d, type: 3}
+    defaultName: 
+    defaultPrefab: {fileID: 0}
+    baseHealth: 0
+    baseMana: 0
+    baseMovementSpeed: 0
+    baseAttacksPerMinute: 0
+    baseAttackRange: 0
+    baseDamage: 0
+    baseDamageRadius: 0
+    baseHealthRegeneration: 0
+    baseManaRegeneration: 0
+    weaponHitterPrefab: {fileID: 0}
     monsterDifficulty: 0
+  isReady: 0
 --- !u!114 &5639009072531480941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,6 +459,8 @@ MonoBehaviour:
     list: []
     keyCollision: 0
   onCharacterEmitter: {fileID: 0}
+  canAttack: 0
+  isAttacking: 0
 --- !u!95 &495419648
 Animator:
   serializedVersion: 5
@@ -501,6 +481,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!65 &2636022360424520050
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6706740770271448460}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &8592887844147469092
 GameObject:
   m_ObjectHideFlags: 0
